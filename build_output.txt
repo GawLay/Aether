@@ -1,0 +1,78 @@
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :domain:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :domain:compileKotlin UP-TO-DATE
+> Task :domain:compileJava NO-SOURCE
+> Task :domain:processResources NO-SOURCE
+> Task :domain:classes UP-TO-DATE
+> Task :domain:jar UP-TO-DATE
+> Task :data:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :data:compileKotlin UP-TO-DATE
+> Task :data:compileJava NO-SOURCE
+> Task :data:processResources NO-SOURCE
+> Task :data:classes UP-TO-DATE
+> Task :data:jar UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :utility:preBuild UP-TO-DATE
+> Task :utility:preDebugBuild UP-TO-DATE
+> Task :utility:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :utility:generateDebugResValues UP-TO-DATE
+> Task :utility:generateDebugResources UP-TO-DATE
+> Task :utility:packageDebugResources UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :utility:extractDeepLinksDebug UP-TO-DATE
+> Task :utility:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :utility:compileDebugLibraryResources UP-TO-DATE
+> Task :utility:parseDebugLocalResources UP-TO-DATE
+> Task :utility:generateDebugRFile UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :utility:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :utility:compileDebugKotlin UP-TO-DATE
+> Task :utility:javaPreCompileDebug UP-TO-DATE
+> Task :utility:compileDebugJavaWithJavac NO-SOURCE
+> Task :utility:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :utility:mergeDebugShaders UP-TO-DATE
+> Task :utility:compileDebugShaders NO-SOURCE
+> Task :utility:generateDebugAssets UP-TO-DATE
+> Task :utility:mergeDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :utility:bundleLibRuntimeToJarDebug UP-TO-DATE
+> Task :utility:processDebugJavaRes UP-TO-DATE
+> Task :utility:createFullJarDebug UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :utility:bundleLibRuntimeToDirDebug UP-TO-DATE
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :utility:mergeDebugJniLibFolders UP-TO-DATE
+> Task :utility:mergeDebugNativeLibs NO-SOURCE
+> Task :utility:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:kaptGenerateStubsDebugKotlin
+> Task :app:kaptDebugKotlin
+> Task :app:compileDebugKotlin
+> Task :app:compileDebugJavaWithJavac
+> Task :app:hiltAggregateDepsDebug FAILED
+> Task :app:mergeExtDexDebug
+56 actionable tasks: 8 executed, 48 up-to-date
