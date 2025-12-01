@@ -19,7 +19,7 @@ import com.kyrie.aether.ui.home.HomeScreen
 import com.kyrie.aether.ui.home.HomeViewModel
 import com.kyrie.aether.ui.model.SampleWeatherData
 import com.kyrie.aether.ui.theme.AetherTheme
-import com.kyrie.aether.utility.shaders.ShaderFactory
+import com.kyrie.aether.utility.shaders.ShaderUtil
 import com.kyrie.aether.utility.shaders.model.ParticleShaders
 import com.kyrie.aether.utility.shaders.model.WeatherSceneShaders
 import com.kyrie.aether.utils.permissions.RequestLocationPermission
@@ -33,9 +33,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        val particleShaders: ParticleShaders = ShaderFactory.createParticleShaders()
-        val sceneShaders: WeatherSceneShaders = ShaderFactory.createSceneShaders()
 
         setContent {
             val iTime = rememberAnimationTime()
@@ -62,8 +59,13 @@ class MainActivity : ComponentActivity() {
                 is WeatherUiState.Loading -> WeatherCondition.CLEAR
                 is WeatherUiState.Error -> WeatherCondition.CLEAR
             }
+            val particleShaders: ParticleShaders = ShaderUtil.createParticleShaders()
+//            val sceneShaders: WeatherSceneShaders =
+//                ShaderUtil.createSceneShaders(weatherCondition)
+            val sceneShaders: WeatherSceneShaders =
+                ShaderUtil.createSceneShaders(WeatherCondition.STARRY)
             Log.d("WeatherCondition", "MainActivity value: $weatherCondition")
-
+            Log.d("WeatherCondition", "ScendShaders value: ${sceneShaders.rainy}")
 
             AetherTheme(weatherCondition = WeatherCondition.RAINY) {
                 HomeScreen(
@@ -78,7 +80,6 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
-
 
     }
 }
@@ -150,9 +151,11 @@ fun SunnyWeatherPreview() {
     }
 }
 
-private fun getDefaultShaderSet(): ParticleShaders = ShaderFactory.createParticleShaders()
+private fun getDefaultShaderSet(): ParticleShaders = ShaderUtil.createParticleShaders()
 
-private fun getDefaultSceneShaderSet(): WeatherSceneShaders = ShaderFactory.createSceneShaders()
+private fun getDefaultSceneShaderSet(): WeatherSceneShaders = ShaderUtil.createSceneShaders(
+    WeatherCondition.RAINY
+)
 
 @Preview(showBackground = true, name = "Loading State")
 @Composable

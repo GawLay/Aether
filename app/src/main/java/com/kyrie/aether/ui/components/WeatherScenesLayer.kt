@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import com.kyrie.aether.ui.theme.WeatherColors
 import com.kyrie.aether.utility.extensions.applyShaderRuntimeEffect
 import com.kyrie.aether.utility.shaders.ShaderComposeLayers
+import com.kyrie.aether.utility.shaders.ShaderUtil
 import com.kyrie.aether.utility.shaders.model.WeatherSceneShaders
+import com.kyrie.aether.utility.shaders.scripts.RainScene
 import com.kyrie.aether.weatherCore.WeatherCondition
 
 /**
@@ -63,7 +65,7 @@ fun WeatherScenesLayer(
         )
 
         WeatherCondition.STARRY, WeatherCondition.PARTLY_STARRY -> listOf(
-            WeatherColors.WeatherCardBackgroundTransparent,
+            WeatherColors.StarryBackground,
             WeatherColors.StarryBackgroundVariant
         )
 
@@ -80,13 +82,14 @@ fun WeatherScenesLayer(
 
         WeatherCondition.CLEAR, WeatherCondition.MOSTLY_CLEAR -> null //shaders.sunny
 
-        WeatherCondition.SNOWY, WeatherCondition.HEAVY_SNOWY -> null //shaders.snowy
+        WeatherCondition.SNOWY, WeatherCondition.HEAVY_SNOWY -> shaders.snowy
 
         WeatherCondition.CLOUDY, WeatherCondition.PARTLY_CLOUDY, WeatherCondition.FOGGY -> null // shaders.cloudy
 
-        WeatherCondition.STARRY, WeatherCondition.PARTLY_STARRY -> null //shaders.starry
+        WeatherCondition.STARRY, WeatherCondition.PARTLY_STARRY -> shaders.starry //shaders.starry
         WeatherCondition.UNKNOWN -> null // shaders.sunny
     }
+    Log.d("WeatherCondition", "SCENE Current value in ScenesLayer: $scene")
     val finalModifier = if (scene != null) {
         modifier.applyShaderRuntimeEffect(
             shader = scene,
@@ -96,11 +99,13 @@ fun WeatherScenesLayer(
     } else {
         modifier
             .fillMaxSize()
+    }
+    Box(
+        modifier = finalModifier
             .background(
                 brush = androidx.compose.ui.graphics.Brush.verticalGradient(
                     colors = backgroundColors
                 )
             )
-    }
-    Box(modifier = finalModifier)
+    )
 }

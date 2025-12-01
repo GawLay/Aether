@@ -69,7 +69,8 @@ fun HomeScreen(
 
     WeatherScenesLayer(
         modifier = modifier.fillMaxSize(),
-        weatherCondition = weatherCondition,
+//        weatherCondition = weatherCondition,
+        weatherCondition = WeatherCondition.STARRY,
         shaders = sceneShaders,
         iTime = iTime
     )

@@ -1,5 +1,10 @@
 package com.kyrie.aether.utility.shaders.scripts
 
+import android.graphics.RuntimeShader
+import com.kyrie.aether.utility.shaders.ShaderUtil
+import com.kyrie.aether.weatherCore.WeatherCondition
+import com.kyrie.aether.weatherCore.factories.CoreShaderFactory
+
 /**
  *
  * Description.
@@ -30,37 +35,42 @@ package com.kyrie.aether.utility.shaders.scripts
  * MAX_OPACITY = 0.6
  * **/
 object RainScene {
-    const val RAIN_LAYER = """
+    /**
+     * Create rain shader for specific condition (eg, rainy, thunderstorm, drizzle)
+     */
+    fun createRainShaderForCondition(condition: WeatherCondition): RuntimeShader? {
+        val config = CoreShaderFactory.getRainConfig(condition)
+        if (config == null) {
+            return null
+        }
+        val shaderCode = """
             uniform shader weatherSceneShaderComposable;
             uniform float2 iResolution;
             uniform float iTime;
             
             half4 main(float2 fragCoord) {
                 float2 uv = fragCoord / iResolution.xy;
-                float3 color = float3(0.1, 0.15, 0.25); // base color
+                float3 color = float3(0.1, 0.15, 0.25);// base color
                 
-                const int DROPLET_COUNT = 80;           // Number of droplets (more = denser rain)
-                const float FALL_SPEED = 0.3;           // Speed of falling (higher = faster)
-                const float TIME_SPREAD = 10.0;         // How spread out droplet spawns are
-                const float MIN_RADIUS_PX = 5.0;        // Minimum droplet size in pixels
-                const float MAX_RADIUS_PX = 13.0;       // Maximum droplet size in pixels
-                const float MIN_OPACITY = 0.4;          // Minimum opacity (0.0 to 1.0)
-                const float MAX_OPACITY = 1.0;          // Maximum opacity (0.0 to 1.0)
-                const float DROPLET_SOFTNESS = 0.7;     // Edge softness (lower = softer edges)
-                const float BASE_ALPHA = 0.5;           // Overall droplet visibility
+                const int DROPLET_COUNT = ${config.dropletCount};
+                const float FALL_SPEED = ${config.fallSpeed};  // Speed of falling (higher = faster)
+                const float TIME_SPREAD = ${config.timeSpread}; // How spread out droplet spawns are
+                const float MIN_RADIUS_PX = ${config.minRadiusPx};// Minimum droplet size in pixels
+                const float MAX_RADIUS_PX = ${config.maxRadiusPx};// Maximum droplet size in pixels
+                const float MIN_OPACITY = ${config.minOpacity};// Minimum opacity (0.0 to 1.0)
+                const float MAX_OPACITY = ${config.maxOpacity};// Maximum opacity (0.0 to 1.0)
+                const float DROPLET_SOFTNESS = ${config.dropletSoftness};// Edge softness (lower = softer edges)
+                const float BASE_ALPHA = ${config.baseAlpha}; // Overall droplet visibility
                 
                 for (int i = 0; i < DROPLET_COUNT; i++) {
                     float seed = float(i);
-                    
                     // Random X position
                     float xPos = fract(sin(seed * 12.9898) * 43758.5453);
-                    
                     // Time offset so they don't all start together
                     float timeOffset = fract(sin(seed * 78.233) * 43758.5453) * TIME_SPREAD;
                     float t = fract((iTime * FALL_SPEED) + timeOffset);
-                    
                     // Fall from top to bottom
-                    float yPos = t * 1.2 - 0.1; // -0.1 to 1.1
+                    float yPos = t * 1.2 - 0.1;
                     
                     // Random size
                     float sizeVariation = fract(sin(seed * 34.567) * 43758.5453);
@@ -73,16 +83,18 @@ object RainScene {
                     
                     // Random opacity
                     float opacity = fract(sin(seed * 56.789) * 43758.5453) * (MAX_OPACITY - MIN_OPACITY) + MIN_OPACITY;
-                    
                     // Simple circle droplet
                     float alpha = smoothstep(radius, radius * DROPLET_SOFTNESS, dist) * BASE_ALPHA * opacity;
                     
-                    // Light blue tint
+                     // Light blue tint
                     float3 dropColor = float3(0.85, 0.92, 0.98);
                     color = mix(color, dropColor, alpha);
                 }
                 
                 return float4(color, 1.0);
             }
-"""
+        """.trimIndent()
+
+        return ShaderUtil.createShader(shaderCode)
+    }
 }
