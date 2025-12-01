@@ -10,17 +10,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.kyrie.aether.ui.theme.LocalDimensions
 
 @Composable
 fun LoadingScreen() {
+    val dimensions = LocalDimensions.current
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(dimensions.spaceMedium)
         ) {
             CircularProgressIndicator()
             Text(

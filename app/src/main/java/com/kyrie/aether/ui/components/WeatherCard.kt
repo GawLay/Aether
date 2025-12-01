@@ -7,7 +7,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.kyrie.aether.ui.theme.LocalDimensions
 import com.kyrie.aether.ui.theme.WeatherColors
 import com.kyrie.aether.weatherCore.WeatherCondition
 
@@ -40,14 +40,17 @@ fun WeatherCard(
         WeatherCondition.FOGGY -> WeatherColors.FoggyBackground
         WeatherCondition.UNKNOWN -> WeatherColors.FoggyBackground
     }
+
+    val dimensions = LocalDimensions.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = dimensions.spaceLarge),
         colors = CardDefaults.cardColors(
             containerColor = backgroundColors
         ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(dimensions.radiusLarge),
     ) {
         content()
     }

@@ -6,7 +6,7 @@ import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.kyrie.aether.ui.theme.LocalDimensions
 import com.kyrie.aether.utility.extensions.applyShaderRuntimeEffect
 import com.kyrie.aether.utility.shaders.ShaderComposeLayers
 
@@ -21,6 +21,8 @@ fun FallingDropletLayer(
     fallingDropletShader: RuntimeShader,
     iTime: MutableFloatState
 ) {
+    val dimensions = LocalDimensions.current
+
     Card(
         modifier = modifier
             .applyShaderRuntimeEffect(
@@ -28,7 +30,7 @@ fun FallingDropletLayer(
                 iTime = { iTime.floatValue },
                 uniformName = ShaderComposeLayers.FALLING_DROPLET.value
             ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(dimensions.radiusLarge),
     ) {}
 }
 
@@ -42,6 +44,8 @@ fun FadingDropletLayer(
     fadingDropletShader: RuntimeShader,
     iTime: MutableFloatState
 ) {
+    val dimensions = LocalDimensions.current
+
     Card(
         modifier = modifier
             .applyShaderRuntimeEffect(
@@ -49,6 +53,6 @@ fun FadingDropletLayer(
                 iTime = { iTime.floatValue },
                 uniformName = ShaderComposeLayers.FADING_DROPLET.value
             ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(dimensions.radiusLarge),
     ) {}
 }

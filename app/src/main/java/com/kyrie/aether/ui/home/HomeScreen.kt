@@ -1,6 +1,5 @@
 package com.kyrie.aether.ui.home
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -36,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kyrie.aether.common.WeatherUiState
 import com.kyrie.aether.ui.components.ErrorScreen
@@ -47,6 +45,7 @@ import com.kyrie.aether.ui.components.WeatherScenesLayer
 import com.kyrie.aether.ui.model.CurrentWeatherUiModel
 import com.kyrie.aether.ui.model.DailyUiModel
 import com.kyrie.aether.ui.model.HourlyUiModel
+import com.kyrie.aether.ui.theme.LocalDimensions
 import com.kyrie.aether.ui.theme.WeatherColors
 import com.kyrie.aether.utility.AetherLog
 import com.kyrie.aether.utility.shaders.model.ParticleShaders
@@ -66,6 +65,8 @@ fun HomeScreen(
     hourlyWeatherState: WeatherUiState<List<HourlyUiModel>>,
     dailyWeatherState: WeatherUiState<List<DailyUiModel>>,
 ) {
+    val dimensions = LocalDimensions.current
+
     AetherLog.d("WeatherCondition", "Current value: $weatherCondition")
 
     WeatherScenesLayer(
@@ -90,7 +91,7 @@ fun HomeScreen(
             // Top bar
             TopBar()
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
 
             // Main weather info
             when (currentWeatherState) {
@@ -100,7 +101,7 @@ fun HomeScreen(
                         currentWeatherState.weather,
                         locationName
                     )
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
                 }
 
                 is WeatherUiState.Error -> ErrorScreen(
@@ -118,7 +119,7 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .padding(dimensions.spaceSmall)
                 ) {
                     if (hourlyWeatherState is WeatherUiState.Success) {
                         HourlyForecast(
@@ -133,7 +134,7 @@ fun HomeScreen(
                     WeatherParticlesLayer(
                         modifier = Modifier
                             .matchParentSize()
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = dimensions.spaceLarge),
                         weatherCondition = weatherCondition,
                         shaders = shaders,
                         iTime = iTime
@@ -141,7 +142,7 @@ fun HomeScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(dimensions.spaceLarge))
 
             // daily day - range forecast
             AnimatedVisibility(
@@ -152,7 +153,7 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .padding(dimensions.spaceSmall)
                 ) {
                     if (dailyWeatherState is WeatherUiState.Success) {
                         DailyForecast(
@@ -164,7 +165,7 @@ fun HomeScreen(
                     WeatherParticlesLayer(
                         modifier = Modifier
                             .matchParentSize()
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = dimensions.spaceLarge),
                         weatherCondition = weatherCondition,
                         shaders = shaders,
                         iTime = iTime
@@ -172,7 +173,7 @@ fun HomeScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(dimensions.spaceLarge))
         }
     }
 
@@ -180,11 +181,13 @@ fun HomeScreen(
 
 @Composable
 private fun TopBar() {
+    val dimensions = LocalDimensions.current
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 8.dp),
+            .padding(horizontal = dimensions.spaceLarge)
+            .padding(top = dimensions.spaceSmall),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -192,18 +195,18 @@ private fun TopBar() {
             imageVector = Icons.Default.LocationOn,
             contentDescription = "Map",
             tint = WeatherColors.WeatherTextPrimary,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(dimensions.iconMedium)
         )
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall)
         ) {
             Icon(
                 imageVector = Icons.Default.Home,
                 contentDescription = "Home",
                 tint = WeatherColors.WeatherTextPrimary,
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(dimensions.iconSmall)
             )
             Text(
                 text = "HOME",
@@ -217,13 +220,15 @@ private fun TopBar() {
             imageVector = Icons.Default.Menu,
             contentDescription = "Menu",
             tint = WeatherColors.WeatherTextPrimary,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(dimensions.iconMedium)
         )
     }
 }
 
 @Composable
 private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationName: String) {
+    val dimensions = LocalDimensions.current
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -237,7 +242,7 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
             fontWeight = FontWeight.Light
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
 
         // Current temperature
         Text(
@@ -250,7 +255,7 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensions.spaceSmall))
 
         // Weather condition
         Text(
@@ -260,8 +265,8 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
             fontWeight = FontWeight.Light
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
+        Spacer(modifier = Modifier.height(dimensions.spaceSmall))
+        //todo adjust time live update, or show last updated time
         Text(
             text = currentWeatherData.time,
             style = MaterialTheme.typography.headlineSmall,
@@ -269,7 +274,7 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
             fontWeight = FontWeight.Light
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensions.spaceSmall))
     }
 }
 
@@ -279,37 +284,41 @@ private fun HourlyForecast(
     weatherCondition: WeatherCondition,
     description: String = "Weather forecast for the day will be implemented later "
 ) {
+    val dimensions = LocalDimensions.current
+
     WeatherCard(weatherCondition) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = WeatherColors.WeatherTextPrimary,
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(dimensions.spaceLarge),
                 lineHeight = 20.sp
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceMedium)
             ) {
                 items(hourlyWeather) { weather ->
                     HourlyWeatherItem(weather)
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
         }
     }
 }
 
 @Composable
 private fun HourlyWeatherItem(weather: HourlyUiModel) {
+    val dimensions = LocalDimensions.current
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(60.dp)
+        modifier = Modifier.width(dimensions.minItemWidth)
     ) {
         Text(
             text = weather.time,
@@ -318,15 +327,14 @@ private fun HourlyWeatherItem(weather: HourlyUiModel) {
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(dimensions.spaceSmall))
 
-        // Weather icon placeholder (you can replace with actual icons)
         Box(
             modifier = Modifier
-                .size(32.dp)
+                .size(dimensions.iconLarge)
                 .background(
                     color = WeatherColors.WeatherCardBackground,
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(dimensions.radiusSmall)
                 ),
             contentAlignment = Alignment.Center
         ) {
@@ -336,9 +344,8 @@ private fun HourlyWeatherItem(weather: HourlyUiModel) {
             )
         }
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(dimensions.spaceExtraSmall))
 
-        // Precipitation chance
         Text(
             text = weather.precipitationChance,
             style = MaterialTheme.typography.bodySmall,
@@ -346,9 +353,8 @@ private fun HourlyWeatherItem(weather: HourlyUiModel) {
             fontSize = 10.sp
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(dimensions.spaceExtraSmall))
 
-        // Temperature text
         Text(
             text = weather.temperature,
             style = MaterialTheme.typography.bodyMedium,
@@ -365,25 +371,26 @@ private fun DailyForecast(
     dailyWeather: List<DailyUiModel>,
     weatherCondition: WeatherCondition,
 ) {
+    val dimensions = LocalDimensions.current
+
     WeatherCard(weatherCondition) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = dimensions.spaceLarge)
         ) {
-            // Section header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(12.dp),
+                    .padding(dimensions.spaceMedium),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceSmall)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Menu, //todo Replace with calendar icon
+                    imageVector = Icons.Default.Menu,
                     contentDescription = "Forecast",
                     tint = WeatherColors.WeatherTextSecondary,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(dimensions.iconSmall)
                 )
                 Text(
                     text = "7-DAY FORECAST",
@@ -393,16 +400,15 @@ private fun DailyForecast(
                 )
             }
 
-            // Removed nested Card
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp) // optional padding inside WeatherCard
+                    .padding(vertical = dimensions.spaceSmall)
             ) {
                 dailyWeather.forEachIndexed { index, weather ->
                     DailyWeatherItem(weather)
                     if (index < dailyWeather.size - 1) {
-                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(dimensions.spaceMedium))
                     }
                 }
             }
@@ -412,13 +418,14 @@ private fun DailyForecast(
 
 @Composable
 private fun DailyWeatherItem(weather: DailyUiModel) {
+    val dimensions = LocalDimensions.current
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp), // reduced vertical spacing
+            .padding(vertical = dimensions.spaceExtraSmall),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Day
         Text(
             text = weather.date,
             style = MaterialTheme.typography.bodyMedium,
@@ -426,10 +433,9 @@ private fun DailyWeatherItem(weather: DailyUiModel) {
             modifier = Modifier.weight(1f)
         )
 
-        // Weather icon and precipitation
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall),
             modifier = Modifier.weight(1f)
         ) {
             Text(
@@ -444,10 +450,9 @@ private fun DailyWeatherItem(weather: DailyUiModel) {
             )
         }
 
-        // Temperature range
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall),
             modifier = Modifier.weight(1f)
         ) {
             Text(
@@ -456,14 +461,13 @@ private fun DailyWeatherItem(weather: DailyUiModel) {
                 color = WeatherColors.WeatherTextSecondary
             )
 
-            // Temperature range bar takes all remaining space
             Box(
                 modifier = Modifier
-                    .height(4.dp)
-                    .weight(1f) // stretches to fill space between min and max
+                    .height(dimensions.strokeThin)
+                    .weight(1f)
                     .background(
                         color = WeatherColors.WeatherAccent,
-                        shape = RoundedCornerShape(2.dp)
+                        shape = RoundedCornerShape(dimensions.radiusSmall)
                     )
             )
 
