@@ -19,6 +19,7 @@ import com.kyrie.aether.ui.home.HomeScreen
 import com.kyrie.aether.ui.home.HomeViewModel
 import com.kyrie.aether.ui.model.SampleWeatherData
 import com.kyrie.aether.ui.theme.AetherTheme
+import com.kyrie.aether.utility.AetherLog
 import com.kyrie.aether.utility.shaders.ShaderUtil
 import com.kyrie.aether.utility.shaders.model.ParticleShaders
 import com.kyrie.aether.utility.shaders.model.WeatherSceneShaders
@@ -60,13 +61,9 @@ class MainActivity : ComponentActivity() {
                 is WeatherUiState.Error -> WeatherCondition.CLEAR
             }
             val particleShaders: ParticleShaders = ShaderUtil.createParticleShaders()
-//            val sceneShaders: WeatherSceneShaders =
-//                ShaderUtil.createSceneShaders(weatherCondition)
             val sceneShaders: WeatherSceneShaders =
-                ShaderUtil.createSceneShaders(WeatherCondition.STARRY)
-            Log.d("WeatherCondition", "MainActivity value: $weatherCondition")
-            Log.d("WeatherCondition", "ScendShaders value: ${sceneShaders.rainy}")
-
+                ShaderUtil.createSceneShaders(weatherCondition)
+            AetherLog.d("WeatherCondition", "MainActivity value: $weatherCondition")
             AetherTheme(weatherCondition = WeatherCondition.RAINY) {
                 HomeScreen(
                     shaders = particleShaders,

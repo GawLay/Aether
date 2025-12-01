@@ -12,6 +12,7 @@ import com.kyrie.aether.ui.model.CurrentWeatherUiModel
 import com.kyrie.aether.ui.model.DailyUiModel
 import com.kyrie.aether.ui.model.HourlyUiModel
 import com.kyrie.aether.ui.model.LocationData
+import com.kyrie.aether.utility.AetherLog
 import com.kyrie.aether.utils.LocationHelper
 import com.kyrie.aether.utils.LocationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -60,11 +61,11 @@ class HomeViewModel @Inject constructor(
                 }
 
                 is LocationResult.Error -> {
-                    Log.e("HomeViewModel", "Loading weather for current location Error")
+                    AetherLog.e("HomeViewModel", "Loading weather for current location Error")
                 }
 
                 is LocationResult.PermissionDenied -> {
-                    Log.e("HomeViewModel", "Loading weather for current location PermissionDenied")
+                    AetherLog.e("HomeViewModel", "Loading weather for current location PermissionDenied")
                 }
             }
         }

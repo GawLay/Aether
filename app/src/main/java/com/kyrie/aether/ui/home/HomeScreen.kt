@@ -48,6 +48,7 @@ import com.kyrie.aether.ui.model.CurrentWeatherUiModel
 import com.kyrie.aether.ui.model.DailyUiModel
 import com.kyrie.aether.ui.model.HourlyUiModel
 import com.kyrie.aether.ui.theme.WeatherColors
+import com.kyrie.aether.utility.AetherLog
 import com.kyrie.aether.utility.shaders.model.ParticleShaders
 import com.kyrie.aether.utility.shaders.model.WeatherSceneShaders
 import com.kyrie.aether.utility.weather.weatherConditionToString
@@ -65,12 +66,11 @@ fun HomeScreen(
     hourlyWeatherState: WeatherUiState<List<HourlyUiModel>>,
     dailyWeatherState: WeatherUiState<List<DailyUiModel>>,
 ) {
-    Log.d("WeatherCondition", "Current value: $weatherCondition")
+    AetherLog.d("WeatherCondition", "Current value: $weatherCondition")
 
     WeatherScenesLayer(
         modifier = modifier.fillMaxSize(),
-//        weatherCondition = weatherCondition,
-        weatherCondition = WeatherCondition.STARRY,
+        weatherCondition = weatherCondition,
         shaders = sceneShaders,
         iTime = iTime
     )
@@ -127,7 +127,7 @@ fun HomeScreen(
                             description = "Weather forecast for the day will be implemented later "
                         )
                     } else {
-                        Log.e("HOMESCREEN", "Hourly weather state is not Success")
+                        AetherLog.e("HOMESCREEN", "Hourly weather state is not Success")
                     }
 
                     WeatherParticlesLayer(

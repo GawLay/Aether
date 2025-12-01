@@ -13,6 +13,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.kyrie.aether.ui.model.LocationData
+import com.kyrie.aether.utility.AetherLog
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
@@ -53,7 +54,7 @@ class LocationHelper @Inject constructor(
 
         return try {
             val location = getLastKnownLocation() ?: getCurrentLocationFromProvider()
-            Log.e("LocationHelper", "Location fetched: $location")
+            AetherLog.e("LocationHelper", "Location fetched: $location")
             if (location != null) {
                 val cityName = getCityNameFromCoordinates(location.latitude, location.longitude)
                 val locationData = LocationData(
@@ -98,7 +99,7 @@ class LocationHelper @Inject constructor(
                     if (!continuation.isCompleted) continuation.resume(location)
                 }
                 .addOnFailureListener { exception ->
-                    Log.e("LocationHelper", "Failed to get location: $exception")
+                    AetherLog.e("LocationHelper", "Failed to get location: $exception")
                     if (!continuation.isCompleted) continuation.resume(null)
                 }
 
@@ -120,7 +121,7 @@ class LocationHelper @Inject constructor(
         return suspendCancellableCoroutine { continuation ->
             val geocoder = Geocoder(context, Locale.getDefault())
             geocoder.getFromLocation(latitude, longitude, 1) { addresses ->
-                Log.e("LocationHelper", "CityName  ${addresses.toString()}")
+                AetherLog.e("LocationHelper", "CityName  ${addresses.toString()}")
                 val cityName = addresses.firstOrNull()?.locality
                     ?: addresses.firstOrNull()?.subAdminArea
                     ?: addresses.firstOrNull()?.adminArea

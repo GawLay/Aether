@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.ui.Modifier
 import com.kyrie.aether.ui.theme.WeatherColors
+import com.kyrie.aether.utility.AetherLog
 import com.kyrie.aether.utility.extensions.applyShaderRuntimeEffect
 import com.kyrie.aether.utility.shaders.ShaderComposeLayers
 import com.kyrie.aether.utility.shaders.ShaderUtil
@@ -32,7 +33,7 @@ fun WeatherScenesLayer(
     shaders: WeatherSceneShaders,
     iTime: MutableFloatState
 ) {
-    Log.d("WeatherCondition", "Current value in ScenesLayer: $weatherCondition")
+    AetherLog.d("WeatherCondition", "Current value in ScenesLayer: $weatherCondition")
     val backgroundColors = when (weatherCondition) {
         WeatherCondition.RAINY, WeatherCondition.DRIZZLE, WeatherCondition.FREEZING_RAIN -> listOf(
             WeatherColors.WeatherCardBackgroundTransparent,
@@ -89,7 +90,7 @@ fun WeatherScenesLayer(
         WeatherCondition.STARRY, WeatherCondition.PARTLY_STARRY -> shaders.starry //shaders.starry
         WeatherCondition.UNKNOWN -> null // shaders.sunny
     }
-    Log.d("WeatherCondition", "SCENE Current value in ScenesLayer: $scene")
+    AetherLog.d("WeatherCondition", "SCENE Current value in ScenesLayer: $scene")
     val finalModifier = if (scene != null) {
         modifier.applyShaderRuntimeEffect(
             shader = scene,
