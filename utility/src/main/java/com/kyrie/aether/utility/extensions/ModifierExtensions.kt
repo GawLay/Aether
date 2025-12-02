@@ -11,21 +11,20 @@ import com.kyrie.aether.utility.shaders.ShaderUniforms
 fun Modifier.applyShaderRuntimeEffect(
     shader: RuntimeShader,
     iTime: () -> Float,
-    uniformName: String
-): Modifier {
-    return this
+    uniformName: String,
+): Modifier =
+    this
         .onSizeChanged { size ->
             shader.setFloatUniform(
                 ShaderUniforms.I_RESOLUTION.value,
                 size.width.toFloat(),
-                size.height.toFloat()
+                size.height.toFloat(),
             )
-        }
-        .graphicsLayer {
+        }.graphicsLayer {
             clip = true
             shader.setFloatUniform(ShaderUniforms.I_TIME.value, iTime())
-            renderEffect = RenderEffect
-                .createRuntimeShaderEffect(shader, uniformName)
-                .asComposeRenderEffect()
+            renderEffect =
+                RenderEffect
+                    .createRuntimeShaderEffect(shader, uniformName)
+                    .asComposeRenderEffect()
         }
-}

@@ -4,7 +4,6 @@ import android.util.Log
 import java.util.Formatter
 
 object AetherLog {
-
     private const val MIN_STACK_OFFSET = 3
     private var defaultTag = "AetherLog"
     private var isEnabled = true
@@ -22,8 +21,7 @@ object AetherLog {
     private const val LEFT_BORDER = "│ "
     private const val BOTTOM_BORDER = "└────────────────────────────────────────────"
 
-    private const val MAX_LOG_LENGTH = 4000  // Android logcat limit
-
+    private const val MAX_LOG_LENGTH = 4000 // Android logcat limit
 
     // Get call info for log header
     private fun getCallInfo(): String {
@@ -37,9 +35,8 @@ object AetherLog {
                 Thread.currentThread().name,
                 element.methodName,
                 element.fileName,
-                element.lineNumber
-            )
-            .toString()
+                element.lineNumber,
+            ).toString()
     }
 
     private fun getStackOffset(trace: Array<StackTraceElement>): Int {
@@ -52,7 +49,11 @@ object AetherLog {
     }
 
     //  log method with borders
-    private fun log(level: Int, tag: String, message: String?) {
+    private fun log(
+        level: Int,
+        tag: String,
+        message: String?,
+    ) {
         if (!isEnabled || message.isNullOrBlank()) return
 
         Log.println(level, tag, TOP_BORDER)
@@ -72,30 +73,49 @@ object AetherLog {
     }
 
     // Public log methods - simple interface
-    fun v(tag: String = defaultTag, message: String?) {
+    fun v(
+        tag: String = defaultTag,
+        message: String?,
+    ) {
         log(Log.VERBOSE, tag, message)
     }
 
-    fun d(tag: String = defaultTag, message: String?) {
+    fun d(
+        tag: String = defaultTag,
+        message: String?,
+    ) {
         log(Log.DEBUG, tag, message)
     }
 
-    fun i(tag: String = defaultTag, message: String?) {
+    fun i(
+        tag: String = defaultTag,
+        message: String?,
+    ) {
         log(Log.INFO, tag, message)
     }
 
-    fun w(tag: String = defaultTag, message: String?) {
+    fun w(
+        tag: String = defaultTag,
+        message: String?,
+    ) {
         log(Log.WARN, tag, message)
     }
 
-    fun e(tag: String = defaultTag, message: String?) {
+    fun e(
+        tag: String = defaultTag,
+        message: String?,
+    ) {
         log(Log.ERROR, tag, message)
     }
 
     // Convenience methods with default tag
     fun v(message: String?) = v(defaultTag, message)
+
     fun d(message: String?) = d(defaultTag, message)
+
     fun i(message: String?) = i(defaultTag, message)
+
     fun w(message: String?) = w(defaultTag, message)
+
     fun e(message: String?) = e(defaultTag, message)
 }

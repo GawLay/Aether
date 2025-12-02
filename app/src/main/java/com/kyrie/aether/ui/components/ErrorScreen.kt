@@ -14,31 +14,35 @@ import androidx.compose.ui.Modifier
 import com.kyrie.aether.ui.theme.LocalDimensions
 
 @Composable
-fun ErrorScreen(message: String, onRetry: () -> Unit) {
+fun ErrorScreen(
+    message: String,
+    onRetry: () -> Unit,
+) {
     val dimensions = LocalDimensions.current
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(dimensions.spaceLarge),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(dimensions.spaceLarge),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(dimensions.spaceMedium)
+            verticalArrangement = Arrangement.spacedBy(dimensions.spaceMedium),
         ) {
             Text(
                 text = "Error",
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
-            
+
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
-            
+
             Button(onClick = onRetry) {
                 Text("Retry")
             }

@@ -4,12 +4,12 @@ data class WeatherResponseDto(
     val latitude: Double,
     val longitude: Double,
     val timezone: String,
-    val current_weather_units: CurrentUnitDto? = null, //current weather
-    val current_weather: CurrentWeatherDto? = null,//current weather
-    val hourly_units: HourlyUnitDto? = null,// hourly weather
-    val daily_units: DailyUnitDto? = null,// daily weather
-    val hourly: HourlyDto? = null,//hourly weather
-    val daily: DailyDto? = null //daily weather
+    val current_weather_units: CurrentUnitDto? = null, // current weather
+    val current_weather: CurrentWeatherDto? = null, // current weather
+    val hourly_units: HourlyUnitDto? = null, // hourly weather
+    val daily_units: DailyUnitDto? = null, // daily weather
+    val hourly: HourlyDto? = null, // hourly weather
+    val daily: DailyDto? = null, // daily weather
 )
 
 data class CurrentUnitDto(
@@ -19,7 +19,7 @@ data class CurrentUnitDto(
     val is_day: String?,
     val weathercode: String?,
     val windspeed: String?,
-    val winddirection: String?
+    val winddirection: String?,
 )
 
 data class HourlyUnitDto(
@@ -34,19 +34,19 @@ data class HourlyUnitDto(
     val apparent_temperature: String?,
     val relative_humidity_2m: String?,
     val precipitation: String?,
-    val precipitation_probability: String?, //"%" (for hourly_units)
+    val precipitation_probability: String?, // "%" (for hourly_units)
     val rain: String?,
     val showers: String?,
     val snowfall: String?,
     val cloud_cover: String?,
     val pressure_msl: String?,
-    val surface_pressure: String?
+    val surface_pressure: String?,
 )
 
 data class DailyUnitDto(
     val time: String?,
     val weather_code: String?,
-    val temperature_2m_max: String?, //"°C" (for daily_units)
+    val temperature_2m_max: String?, // "°C" (for daily_units)
     val temperature_2m_min: String?,
     val apparent_temperature_max: String?,
     val apparent_temperature_min: String?,
@@ -60,13 +60,13 @@ data class DailyUnitDto(
     val rain_sum: String?,
     val snowfall_sum: String?,
     val precipitation_sum: String?,
-    val precipitation_probability_max: String?, //"%"
+    val precipitation_probability_max: String?, // "%"
     val precipitation_hours: String?,
     val wind_speed_10m_max: String?,
     val wind_gusts_10m_max: String?,
     val wind_direction_10m_dominant: String?,
     val shortwave_radiation_sum: String?,
-    val et0_fao_evapotranspiration: String?
+    val et0_fao_evapotranspiration: String?,
 )
 
 data class CurrentWeatherDto(
@@ -99,7 +99,7 @@ data class HourlyDto(
     val showers: List<Double>? = null,
     val snowfall: List<Double>? = null,
     val snow_depth: List<Double>? = null,
-    val precipitation: List<Double>? = null
+    val precipitation: List<Double>? = null,
 )
 
 data class DailyDto(
@@ -110,5 +110,5 @@ data class DailyDto(
     val sunrise: List<String>?,
     val sunset: List<String>?,
     val uv_index_max: List<Double>?,
-    val precipitation_probability_max: List<Int>?
+    val precipitation_probability_max: List<Int>?,
 )

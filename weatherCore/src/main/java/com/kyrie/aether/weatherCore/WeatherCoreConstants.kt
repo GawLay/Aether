@@ -1,13 +1,12 @@
 package com.kyrie.aether.weatherCore
 
-
 enum class WeatherCondition {
     DRIZZLE,
     RAINY,
     FREEZING_RAIN,
     SHOWER,
     THUNDERSTORM,
-    CLEAR, //SUNNY sky
+    CLEAR, // SUNNY sky
     MOSTLY_CLEAR,
     CLOUDY,
     PARTLY_CLOUDY,
@@ -16,14 +15,14 @@ enum class WeatherCondition {
     SNOWY,
     HEAVY_SNOWY,
 
-    STARRY,// clear night sky
-    PARTLY_STARRY,// partly cloudy night sky
-    UNKNOWN
+    STARRY, // clear night sky
+    PARTLY_STARRY, // partly cloudy night sky
+    UNKNOWN,
 }
 
-enum class DayNight{
+enum class DayNight {
     DAY,
-    NIGHT
+    NIGHT,
 }
 
 /**
@@ -53,5 +52,5 @@ enum class WeatherIcon {
     SHOWER,
     THUNDERSTORM,
 
-    UNKNOWN
+    UNKNOWN,
 }

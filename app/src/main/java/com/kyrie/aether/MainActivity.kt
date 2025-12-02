@@ -1,7 +1,6 @@
 package com.kyrie.aether
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -31,6 +30,7 @@ import kotlinx.coroutines.delay
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: HomeViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,17 +49,20 @@ class MainActivity : ComponentActivity() {
                 },
                 onPermissionDenied = {
                     hasPermission.value = false
-                }
+                },
             )
             val currentWeatherState by viewModel.currentWeatherState.collectAsState()
             val hourlyWeatherState by viewModel.hourlyWeatherState.collectAsState()
             val dailyWeatherState by viewModel.dailyWeatherState.collectAsState()
 
-            val weatherCondition = when (currentWeatherState) {
-                is WeatherUiState.Success -> (currentWeatherState as WeatherUiState.Success).weather.condition
-                is WeatherUiState.Loading -> WeatherCondition.CLEAR
-                is WeatherUiState.Error -> WeatherCondition.CLEAR
-            }
+            val weatherCondition =
+                when (currentWeatherState) {
+                    is WeatherUiState.Success ->
+                        (currentWeatherState as WeatherUiState.Success)
+                            .weather.condition
+                    is WeatherUiState.Loading -> WeatherCondition.CLEAR
+                    is WeatherUiState.Error -> WeatherCondition.CLEAR
+                }
             val particleShaders: ParticleShaders = ShaderUtil.createParticleShaders()
             val sceneShaders: WeatherSceneShaders =
                 ShaderUtil.createSceneShaders(weatherCondition)
@@ -73,25 +76,23 @@ class MainActivity : ComponentActivity() {
                     currentWeatherState = currentWeatherState,
                     hourlyWeatherState = hourlyWeatherState,
                     dailyWeatherState = dailyWeatherState,
-                    locationName = currentLocation?.cityName ?: "Unknown Location"
+                    locationName = currentLocation?.cityName ?: "Unknown Location",
                 )
             }
         }
-
     }
 }
-
 
 @Composable
 private fun RequestLocationPermissionIfNeeded(
     hasPermission: Boolean,
     onPermissionGranted: () -> Unit,
-    onPermissionDenied: () -> Unit
+    onPermissionDenied: () -> Unit,
 ) {
     if (!hasPermission) {
         RequestLocationPermission(
             onPermissionGranted = onPermissionGranted,
-            onPermissionDenied = onPermissionDenied
+            onPermissionDenied = onPermissionDenied,
         )
     } else {
         LaunchedEffect(Unit) { onPermissionGranted() }
@@ -99,18 +100,19 @@ private fun RequestLocationPermissionIfNeeded(
 }
 
 @Composable
-private fun rememberAnimationTime() = remember {
-    mutableFloatStateOf(0f)
-}.also { state ->
-    LaunchedEffect(Unit) {
-        val start = System.nanoTime()
-        while (true) {
-            val now = System.nanoTime()
-            state.floatValue = (now - start) / 1_000_000_000f
-            delay(16)
+private fun rememberAnimationTime() =
+    remember {
+        mutableFloatStateOf(0f)
+    }.also { state ->
+        LaunchedEffect(Unit) {
+            val start = System.nanoTime()
+            while (true) {
+                val now = System.nanoTime()
+                state.floatValue = (now - start) / 1_000_000_000f
+                delay(16)
+            }
         }
     }
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -125,7 +127,7 @@ fun WeatherHomePreview() {
             locationName = "City Preview Name",
             currentWeatherState = WeatherUiState.Success(SampleWeatherData.currentWeather),
             hourlyWeatherState = WeatherUiState.Success(SampleWeatherData.hourlyForecast),
-            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast)
+            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast),
         )
     }
 }
@@ -143,16 +145,17 @@ fun SunnyWeatherPreview() {
             locationName = "City Preview Name",
             currentWeatherState = WeatherUiState.Success(SampleWeatherData.currentWeather),
             hourlyWeatherState = WeatherUiState.Success(SampleWeatherData.hourlyForecast),
-            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast)
+            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast),
         )
     }
 }
 
 private fun getDefaultShaderSet(): ParticleShaders = ShaderUtil.createParticleShaders()
 
-private fun getDefaultSceneShaderSet(): WeatherSceneShaders = ShaderUtil.createSceneShaders(
-    WeatherCondition.RAINY
-)
+private fun getDefaultSceneShaderSet(): WeatherSceneShaders =
+    ShaderUtil.createSceneShaders(
+        WeatherCondition.RAINY,
+    )
 
 @Preview(showBackground = true, name = "Loading State")
 @Composable
@@ -167,7 +170,7 @@ fun LoadingWeatherPreview() {
             locationName = "City Preview Name",
             currentWeatherState = WeatherUiState.Success(SampleWeatherData.currentWeather),
             hourlyWeatherState = WeatherUiState.Success(SampleWeatherData.hourlyForecast),
-            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast)
+            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast),
         )
     }
 }
@@ -185,11 +188,10 @@ fun ErrorWeatherPreview() {
             locationName = "City Preview Name",
             currentWeatherState = WeatherUiState.Error("Failed to load weather data"),
             hourlyWeatherState = WeatherUiState.Error("Failed to load hourly data"),
-            dailyWeatherState = WeatherUiState.Error("Failed to load daily data")
+            dailyWeatherState = WeatherUiState.Error("Failed to load daily data"),
         )
     }
 }
-
 
 @Preview(showBackground = true, name = "Snowy Theme")
 @Composable
@@ -204,8 +206,7 @@ fun SnowyWeatherPreview() {
             locationName = "City Preview Name",
             currentWeatherState = WeatherUiState.Success(SampleWeatherData.currentWeather),
             hourlyWeatherState = WeatherUiState.Success(SampleWeatherData.hourlyForecast),
-            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast)
+            dailyWeatherState = WeatherUiState.Success(SampleWeatherData.dailyForecast),
         )
     }
 }
-

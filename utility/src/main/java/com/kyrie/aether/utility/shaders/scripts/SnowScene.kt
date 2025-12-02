@@ -6,12 +6,13 @@ import com.kyrie.aether.weatherCore.WeatherCondition
 import com.kyrie.aether.weatherCore.factories.CoreShaderFactory
 
 object SnowScene {
-
     fun createSnowShaderForCondition(condition: WeatherCondition): RuntimeShader? {
-        val config = CoreShaderFactory.getSnowConfig(condition)
-            ?: return null
+        val config =
+            CoreShaderFactory.getSnowConfig(condition)
+                ?: return null
 
-        val shaderCode = """
+        val shaderCode =
+            """
             uniform shader weatherSceneShaderComposable;
             uniform float2 iResolution;
             uniform float iTime;
@@ -77,7 +78,7 @@ object SnowScene {
 
                 return float4(color, 1.0);
             }
-        """.trimIndent()
+            """.trimIndent()
 
         return ShaderUtil.createShader(shaderCode)
     }

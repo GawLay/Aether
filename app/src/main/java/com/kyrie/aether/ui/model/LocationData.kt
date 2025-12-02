@@ -5,5 +5,5 @@ data class LocationData(
     val longitude: Double,
     val cityName: String? = null,
     val countryName: String? = null,
-    val fullAddress: String? = null
+    val fullAddress: String? = null,
 )

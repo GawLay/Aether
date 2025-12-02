@@ -13,14 +13,16 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 @Composable
 fun RequestLocationPermission(
     onPermissionGranted: () -> Unit,
-    onPermissionDenied: () -> Unit
+    onPermissionDenied: () -> Unit,
 ) {
-    val locationPermissionsState = rememberMultiplePermissionsState(
-        permissions = listOf(
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION
+    val locationPermissionsState =
+        rememberMultiplePermissionsState(
+            permissions =
+                listOf(
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                ),
         )
-    )
 
     LaunchedEffect(locationPermissionsState.allPermissionsGranted) {
         if (locationPermissionsState.allPermissionsGranted) {
@@ -35,21 +37,24 @@ fun RequestLocationPermission(
             onRequestPermission = {
                 locationPermissionsState.launchMultiplePermissionRequest()
             },
-            onDismiss = onPermissionDenied
+            onDismiss = onPermissionDenied,
         )
     }
 }
 
-
 @Composable
 fun LocationPermissionDialog(
     onRequestPermission: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("Location Permission Required") },
-        text = { Text("This app needs location access to show weather for your current location.") },
+        text = {
+            Text(
+                "This app needs location access to show weather for your current location.",
+            )
+        },
         confirmButton = {
             Button(onClick = onRequestPermission) {
                 Text("Grant Permission")
@@ -59,6 +64,6 @@ fun LocationPermissionDialog(
             TextButton(onClick = onDismiss) {
                 Text("Cancel")
             }
-        }
+        },
     )
 }

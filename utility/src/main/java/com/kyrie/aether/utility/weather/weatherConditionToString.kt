@@ -33,8 +33,8 @@ fun WeatherCondition.weatherConditionToString(): String {
 /**
  * to display in UI with proper ICON
  * **/
-fun WeatherIcon.toStringIcon(): String {
-    return when (this) {
+fun WeatherIcon.toStringIcon(): String =
+    when (this) {
         WeatherIcon.RAIN -> "🌧️"
         WeatherIcon.DRIZZLE -> "🌧️"
         WeatherIcon.SHOWER -> "🌦️"
@@ -55,4 +55,3 @@ fun WeatherIcon.toStringIcon(): String {
         WeatherIcon.UNKNOWN -> "❓"
         WeatherIcon.FREEZING_RAIN -> "🧊🌧️"
     }
-}

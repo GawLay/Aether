@@ -43,15 +43,16 @@ object RainScene {
         if (config == null) {
             return null
         }
-        val shaderCode = """
+        val shaderCode =
+            """
             uniform shader weatherSceneShaderComposable;
             uniform float2 iResolution;
             uniform float iTime;
-            
+
             half4 main(float2 fragCoord) {
                 float2 uv = fragCoord / iResolution.xy;
                 float3 color = float3(0.1, 0.15, 0.25);// base color
-                
+
                 const int DROPLET_COUNT = ${config.dropletCount};
                 const float FALL_SPEED = ${config.fallSpeed};  // Speed of falling (higher = faster)
                 const float TIME_SPREAD = ${config.timeSpread}; // How spread out droplet spawns are
@@ -61,7 +62,7 @@ object RainScene {
                 const float MAX_OPACITY = ${config.maxOpacity};// Maximum opacity (0.0 to 1.0)
                 const float DROPLET_SOFTNESS = ${config.dropletSoftness};// Edge softness (lower = softer edges)
                 const float BASE_ALPHA = ${config.baseAlpha}; // Overall droplet visibility
-                
+
                 for (int i = 0; i < DROPLET_COUNT; i++) {
                     float seed = float(i);
                     // Random X position
@@ -71,29 +72,29 @@ object RainScene {
                     float t = fract((iTime * FALL_SPEED) + timeOffset);
                     // Fall from top to bottom
                     float yPos = t * 1.2 - 0.1;
-                    
+
                     // Random size
                     float sizeVariation = fract(sin(seed * 34.567) * 43758.5453);
                     float radiusPixels = sizeVariation * (MAX_RADIUS_PX - MIN_RADIUS_PX) + MIN_RADIUS_PX;
                     float radius = radiusPixels / iResolution.y;
-                    
+
                     float2 pos = float2(xPos, yPos);
                     float2 diff = uv - pos;
                     float dist = length(diff);
-                    
+
                     // Random opacity
                     float opacity = fract(sin(seed * 56.789) * 43758.5453) * (MAX_OPACITY - MIN_OPACITY) + MIN_OPACITY;
                     // Simple circle droplet
                     float alpha = smoothstep(radius, radius * DROPLET_SOFTNESS, dist) * BASE_ALPHA * opacity;
-                    
+
                      // Light blue tint
                     float3 dropColor = float3(0.85, 0.92, 0.98);
                     color = mix(color, dropColor, alpha);
                 }
-                
+
                 return float4(color, 1.0);
             }
-        """.trimIndent()
+            """.trimIndent()
 
         return ShaderUtil.createShader(shaderCode)
     }

@@ -73,20 +73,22 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize(),
         weatherCondition = weatherCondition,
         shaders = sceneShaders,
-        iTime = iTime
+        iTime = iTime,
     )
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = WeatherColors.Transparent)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color = WeatherColors.Transparent),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-                .navigationBarsPadding()
-                .verticalScroll(rememberScrollState())
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .statusBarsPadding()
+                    .navigationBarsPadding()
+                    .verticalScroll(rememberScrollState()),
         ) {
             // Top bar
             TopBar()
@@ -99,45 +101,47 @@ fun HomeScreen(
                 is WeatherUiState.Success -> {
                     MainWeatherInfo(
                         currentWeatherState.weather,
-                        locationName
+                        locationName,
                     )
                     Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
                 }
 
-                is WeatherUiState.Error -> ErrorScreen(
-                    message = currentWeatherState.message,
-                    onRetry = { /* TODO: Implement retry logic */ }
-                )
+                is WeatherUiState.Error ->
+                    ErrorScreen(
+                        message = currentWeatherState.message,
+                        onRetry = { /* TODO: Implement retry logic */ },
+                    )
             }
-
 
             AnimatedVisibility(
                 visible = hourlyWeatherState is WeatherUiState.Success,
                 enter = fadeIn(),
-                exit = fadeOut()
+                exit = fadeOut(),
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(dimensions.spaceSmall)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(dimensions.spaceSmall),
                 ) {
                     if (hourlyWeatherState is WeatherUiState.Success) {
                         HourlyForecast(
                             hourlyWeather = hourlyWeatherState.weather,
                             weatherCondition = weatherCondition,
-                            description = "Weather forecast for the day will be implemented later "
+                            description = "Weather forecast for the day will be implemented later ",
                         )
                     } else {
                         AetherLog.e("HOMESCREEN", "Hourly weather state is not Success")
                     }
 
                     WeatherParticlesLayer(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .padding(horizontal = dimensions.spaceLarge),
+                        modifier =
+                            Modifier
+                                .matchParentSize()
+                                .padding(horizontal = dimensions.spaceLarge),
                         weatherCondition = weatherCondition,
                         shaders = shaders,
-                        iTime = iTime
+                        iTime = iTime,
                     )
                 }
             }
@@ -148,27 +152,29 @@ fun HomeScreen(
             AnimatedVisibility(
                 visible = dailyWeatherState is WeatherUiState.Success,
                 enter = fadeIn(),
-                exit = fadeOut()
+                exit = fadeOut(),
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(dimensions.spaceSmall)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(dimensions.spaceSmall),
                 ) {
                     if (dailyWeatherState is WeatherUiState.Success) {
                         DailyForecast(
                             dailyWeather = dailyWeatherState.weather,
-                            weatherCondition = weatherCondition
+                            weatherCondition = weatherCondition,
                         )
                     }
 
                     WeatherParticlesLayer(
-                        modifier = Modifier
-                            .matchParentSize()
-                            .padding(horizontal = dimensions.spaceLarge),
+                        modifier =
+                            Modifier
+                                .matchParentSize()
+                                .padding(horizontal = dimensions.spaceLarge),
                         weatherCondition = weatherCondition,
                         shaders = shaders,
-                        iTime = iTime
+                        iTime = iTime,
                     )
                 }
             }
@@ -176,7 +182,6 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(dimensions.spaceLarge))
         }
     }
-
 }
 
 @Composable
@@ -184,35 +189,36 @@ private fun TopBar() {
     val dimensions = LocalDimensions.current
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = dimensions.spaceLarge)
-            .padding(top = dimensions.spaceSmall),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensions.spaceLarge)
+                .padding(top = dimensions.spaceSmall),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Default.LocationOn,
             contentDescription = "Map",
             tint = WeatherColors.WeatherTextPrimary,
-            modifier = Modifier.size(dimensions.iconMedium)
+            modifier = Modifier.size(dimensions.iconMedium),
         )
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall)
+            horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall),
         ) {
             Icon(
                 imageVector = Icons.Default.Home,
                 contentDescription = "Home",
                 tint = WeatherColors.WeatherTextPrimary,
-                modifier = Modifier.size(dimensions.iconSmall)
+                modifier = Modifier.size(dimensions.iconSmall),
             )
             Text(
                 text = "HOME",
                 style = MaterialTheme.typography.labelMedium,
                 color = WeatherColors.WeatherTextPrimary,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
             )
         }
 
@@ -220,18 +226,21 @@ private fun TopBar() {
             imageVector = Icons.Default.Menu,
             contentDescription = "Menu",
             tint = WeatherColors.WeatherTextPrimary,
-            modifier = Modifier.size(dimensions.iconMedium)
+            modifier = Modifier.size(dimensions.iconMedium),
         )
     }
 }
 
 @Composable
-private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationName: String) {
+private fun MainWeatherInfo(
+    currentWeatherData: CurrentWeatherUiModel,
+    locationName: String,
+) {
     val dimensions = LocalDimensions.current
 
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // Location
         Text(
@@ -239,7 +248,7 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
             style = MaterialTheme.typography.headlineMedium,
             color = WeatherColors.WeatherTextPrimary,
             textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Light
+            fontWeight = FontWeight.Light,
         )
 
         Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
@@ -247,12 +256,13 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
         // Current temperature
         Text(
             text = currentWeatherData.temperature,
-            style = MaterialTheme.typography.displayLarge.copy(
-                fontSize = 96.sp,
-                fontWeight = FontWeight.Thin
-            ),
+            style =
+                MaterialTheme.typography.displayLarge.copy(
+                    fontSize = 96.sp,
+                    fontWeight = FontWeight.Thin,
+                ),
             color = WeatherColors.WeatherTextPrimary,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.height(dimensions.spaceSmall))
@@ -262,16 +272,16 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
             text = currentWeatherData.condition.weatherConditionToString(),
             style = MaterialTheme.typography.headlineSmall,
             color = WeatherColors.WeatherTextPrimary,
-            fontWeight = FontWeight.Light
+            fontWeight = FontWeight.Light,
         )
 
         Spacer(modifier = Modifier.height(dimensions.spaceSmall))
-        //todo adjust time live update, or show last updated time
+        // todo adjust time live update, or show last updated time
         Text(
             text = currentWeatherData.time,
             style = MaterialTheme.typography.headlineSmall,
             color = WeatherColors.WeatherTextPrimary,
-            fontWeight = FontWeight.Light
+            fontWeight = FontWeight.Light,
         )
 
         Spacer(modifier = Modifier.height(dimensions.spaceSmall))
@@ -282,7 +292,7 @@ private fun MainWeatherInfo(currentWeatherData: CurrentWeatherUiModel, locationN
 private fun HourlyForecast(
     hourlyWeather: List<HourlyUiModel>,
     weatherCondition: WeatherCondition,
-    description: String = "Weather forecast for the day will be implemented later "
+    description: String = "Weather forecast for the day will be implemented later ",
 ) {
     val dimensions = LocalDimensions.current
 
@@ -293,14 +303,14 @@ private fun HourlyForecast(
                 style = MaterialTheme.typography.bodyMedium,
                 color = WeatherColors.WeatherTextPrimary,
                 modifier = Modifier.padding(dimensions.spaceLarge),
-                lineHeight = 20.sp
+                lineHeight = 20.sp,
             )
 
             Spacer(modifier = Modifier.height(dimensions.spaceExtraLarge))
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceMedium)
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceMedium),
             ) {
                 items(hourlyWeather) { weather ->
                     HourlyWeatherItem(weather)
@@ -318,29 +328,30 @@ private fun HourlyWeatherItem(weather: HourlyUiModel) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(dimensions.minItemWidth)
+        modifier = Modifier.width(dimensions.minItemWidth),
     ) {
         Text(
             text = weather.time,
             style = MaterialTheme.typography.bodySmall,
             color = WeatherColors.WeatherTextSecondary,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.height(dimensions.spaceSmall))
 
         Box(
-            modifier = Modifier
-                .size(dimensions.iconLarge)
-                .background(
-                    color = WeatherColors.WeatherCardBackground,
-                    shape = RoundedCornerShape(dimensions.radiusSmall)
-                ),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .size(dimensions.iconLarge)
+                    .background(
+                        color = WeatherColors.WeatherCardBackground,
+                        shape = RoundedCornerShape(dimensions.radiusSmall),
+                    ),
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = weather.iconString,
-                fontSize = 16.sp
+                fontSize = 16.sp,
             )
         }
 
@@ -350,7 +361,7 @@ private fun HourlyWeatherItem(weather: HourlyUiModel) {
             text = weather.precipitationChance,
             style = MaterialTheme.typography.bodySmall,
             color = WeatherColors.WeatherTextSecondary,
-            fontSize = 10.sp
+            fontSize = 10.sp,
         )
 
         Spacer(modifier = Modifier.height(dimensions.spaceExtraSmall))
@@ -361,7 +372,7 @@ private fun HourlyWeatherItem(weather: HourlyUiModel) {
             color = WeatherColors.WeatherTextPrimary,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center,
-            fontSize = 14.sp
+            fontSize = 14.sp,
         )
     }
 }
@@ -375,35 +386,38 @@ private fun DailyForecast(
 
     WeatherCard(weatherCondition) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = dimensions.spaceLarge)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = dimensions.spaceLarge),
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(dimensions.spaceMedium),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(dimensions.spaceMedium),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceSmall)
+                horizontalArrangement = Arrangement.spacedBy(dimensions.spaceSmall),
             ) {
                 Icon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = "Forecast",
                     tint = WeatherColors.WeatherTextSecondary,
-                    modifier = Modifier.size(dimensions.iconSmall)
+                    modifier = Modifier.size(dimensions.iconSmall),
                 )
                 Text(
                     text = "7-DAY FORECAST",
                     style = MaterialTheme.typography.labelMedium,
                     color = WeatherColors.WeatherTextSecondary,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
                 )
             }
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = dimensions.spaceSmall)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = dimensions.spaceSmall),
             ) {
                 dailyWeather.forEachIndexed { index, weather ->
                     DailyWeatherItem(weather)
@@ -421,60 +435,62 @@ private fun DailyWeatherItem(weather: DailyUiModel) {
     val dimensions = LocalDimensions.current
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = dimensions.spaceExtraSmall),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = dimensions.spaceExtraSmall),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = weather.date,
             style = MaterialTheme.typography.bodyMedium,
             color = WeatherColors.WeatherTextPrimary,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Text(
                 text = weather.iconString,
-                fontSize = 16.sp
+                fontSize = 16.sp,
             )
             Text(
                 text = weather.precipitationChance,
                 style = MaterialTheme.typography.bodySmall,
                 color = WeatherColors.WeatherTextSecondary,
-                fontSize = 12.sp
+                fontSize = 12.sp,
             )
         }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(dimensions.spaceExtraSmall),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Text(
                 text = weather.minTemp,
                 style = MaterialTheme.typography.bodyMedium,
-                color = WeatherColors.WeatherTextSecondary
+                color = WeatherColors.WeatherTextSecondary,
             )
 
             Box(
-                modifier = Modifier
-                    .height(dimensions.strokeThin)
-                    .weight(1f)
-                    .background(
-                        color = WeatherColors.WeatherAccent,
-                        shape = RoundedCornerShape(dimensions.radiusSmall)
-                    )
+                modifier =
+                    Modifier
+                        .height(dimensions.strokeThin)
+                        .weight(1f)
+                        .background(
+                            color = WeatherColors.WeatherAccent,
+                            shape = RoundedCornerShape(dimensions.radiusSmall),
+                        ),
             )
 
             Text(
                 text = weather.maxTemp,
                 style = MaterialTheme.typography.bodyMedium,
-                color = WeatherColors.WeatherTextPrimary
+                color = WeatherColors.WeatherTextPrimary,
             )
         }
     }

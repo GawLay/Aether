@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+echo "Running ktlint before push..."
+
+# Ensure Gradle wrapper is executable
+[ -x ./gradlew ] || chmod +x ./gradlew
+
+# Prefer aggregate task if available, otherwise fall back to check only
+if ./gradlew -q tasks --all | grep -q "ktLintCheckFormat"; then
+  ./gradlew -q ktLintCheckFormat
+else
+  ./gradlew -q ktlintCheck
+fi
+
+if [ $? -ne 0 ]; then
+  echo "KtLint violations found. Fix them before pushing."
+  echo "Try: ./gradlew ktlintFormat && ./gradlew ktlintCheck"
+  exit 1
+fi
+
+echo "KtLint passed — pushing allowed."

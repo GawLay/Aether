@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+
+echo "Checking style with ktlint on staged files..."
+
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACM -- '*.kt' '*.kts')
+
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No Kotlin changes staged. Skipping ktlint."
+  exit 0
+fi
+
+# Ensure Gradle wrapper is executable (helpful on fresh clones)
+[ -x ./gradlew ] || chmod +x ./gradlew
+
+# Format first, then check. Re-add formatted files to the index.
+./gradlew -q ktlintFormat
+
+echo "$CHANGED_FILES" | xargs -I {} git add {}
+
+./gradlew -q ktlintCheck || {
+  echo "KtLint issues found. Please fix them before committing."
+  echo "You can try auto-fix with: ./gradlew ktlintFormat"
+  exit 1
+}
+
+echo "KtLint OK"

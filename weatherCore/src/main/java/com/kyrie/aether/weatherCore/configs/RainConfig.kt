@@ -9,5 +9,5 @@ data class RainConfig(
     override val minOpacity: Float,
     override val maxOpacity: Float,
     override val dropletSoftness: Float,
-    override val baseAlpha: Float
-): WeatherConfig
+    override val baseAlpha: Float,
+) : WeatherConfig

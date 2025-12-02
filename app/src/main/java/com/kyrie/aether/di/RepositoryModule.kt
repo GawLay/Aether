@@ -15,12 +15,9 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideWeatherRepository(api: WeatherApi): WeatherRepository =
-        WeatherRepositoryImpl(api)
+    fun provideWeatherRepository(api: WeatherApi): WeatherRepository = WeatherRepositoryImpl(api)
 
     @Provides
     @Singleton
-    fun provideGetCurrentWeatherUseCase(
-        repo: WeatherRepository
-    ) = GetCurrentWeatherUseCase(repo)
+    fun provideGetCurrentWeatherUseCase(repo: WeatherRepository) = GetCurrentWeatherUseCase(repo)
 }

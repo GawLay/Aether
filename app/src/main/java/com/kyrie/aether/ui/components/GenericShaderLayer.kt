@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun ShaderLayers(
     modifier: Modifier = Modifier,
-    layers: List<@Composable (Modifier) -> Unit>
+    layers: List<@Composable (Modifier) -> Unit>,
 ) {
     Box(modifier = modifier) {
         layers.forEach { layer ->

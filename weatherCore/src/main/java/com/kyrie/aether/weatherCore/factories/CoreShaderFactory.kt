@@ -9,10 +9,8 @@ import com.kyrie.aether.weatherCore.configs.StarConfig
 import com.kyrie.aether.weatherCore.configs.StarProfile
 
 object CoreShaderFactory {
-    fun getRainConfig(
-        condition: WeatherCondition
-    ): RainConfig? {
-        return when (condition) {
+    fun getRainConfig(condition: WeatherCondition): RainConfig? =
+        when (condition) {
             WeatherCondition.DRIZZLE -> RainProfile.Light.forTier()
             WeatherCondition.FREEZING_RAIN, WeatherCondition.RAINY -> RainProfile.Moderate.forTier()
 
@@ -20,24 +18,18 @@ object CoreShaderFactory {
 
             else -> null
         }
-    }
 
-    fun getSnowConfig(
-        condition: WeatherCondition
-    ): SnowConfig? {
-        return when (condition) {
+    fun getSnowConfig(condition: WeatherCondition): SnowConfig? =
+        when (condition) {
             WeatherCondition.SNOWY -> SnowProfile.Moderate.forTier()
             WeatherCondition.HEAVY_SNOWY -> SnowProfile.Heavy.forTier()
             else -> null
         }
-    }
 
-    fun getStarConfig(condition: WeatherCondition): StarConfig? {
-        return when (condition) {
+    fun getStarConfig(condition: WeatherCondition): StarConfig? =
+        when (condition) {
             WeatherCondition.STARRY -> StarProfile.Heavy.forTier()
             WeatherCondition.PARTLY_STARRY -> StarProfile.Moderate.forTier()
             else -> null
         }
-    }
-
 }

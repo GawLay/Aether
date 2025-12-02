@@ -10,48 +10,37 @@ import com.kyrie.aether.utility.shaders.scripts.StarScene
 import com.kyrie.aether.weatherCore.WeatherCondition
 
 object ShaderUtil {
-    fun createShader(shaderCode: String): RuntimeShader {
-        return RuntimeShader(shaderCode)
-    }
+    fun createShader(shaderCode: String): RuntimeShader = RuntimeShader(shaderCode)
 
-    fun fadingDropletShader(): RuntimeShader {
-        return createShader(Droplets.FADING_DROPLET_LAYER)
-    }
+    fun fadingDropletShader(): RuntimeShader = createShader(Droplets.FADING_DROPLET_LAYER)
 
-    fun fallingDropletShader(): RuntimeShader {
-        return createShader(Droplets.FALLING_DROPLET_LAYER)
-    }
+    fun fallingDropletShader(): RuntimeShader = createShader(Droplets.FALLING_DROPLET_LAYER)
 
-    fun createParticleShaders(): ParticleShaders {
-        return ParticleShaders(
+    fun createParticleShaders(): ParticleShaders =
+        ParticleShaders(
             fallingDroplet = fallingDropletShader(),
-            fadingDroplet = fadingDropletShader()
+            fadingDroplet = fadingDropletShader(),
         )
-    }
 
-    fun createSceneShaders(
-        weatherCondition: WeatherCondition
-    ): WeatherSceneShaders {
-        return WeatherSceneShaders(
+    fun createSceneShaders(weatherCondition: WeatherCondition): WeatherSceneShaders =
+        WeatherSceneShaders(
             rainy = rainSceneShaderScript(weatherCondition),
             snowy = snowSceneShaderScript(weatherCondition),
             starry = starSceneShaderScript(weatherCondition),
-            sunny = null,
-            cloudy = null
+            sunny = sunnySceneShaderScript(weatherCondition), // todo implement later
+            cloudy = cloudySceneShaderScript(weatherCondition), // todo implement later
         )
-    }
 
+    private fun rainSceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? =
+        RainScene.createRainShaderForCondition(weatherCondition)
 
-    private fun rainSceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? {
-        return RainScene.createRainShaderForCondition(weatherCondition)
-    }
+    private fun snowSceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? =
+        SnowScene.createSnowShaderForCondition(weatherCondition)
 
-    private fun snowSceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? {
-        return SnowScene.createSnowShaderForCondition(weatherCondition)
-    }
+    private fun starSceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? =
+        StarScene.createStarShaderForCondition(weatherCondition)
 
-    private fun starSceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? {
-        return StarScene.createStarShaderForCondition(weatherCondition)
-    }
+    private fun sunnySceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? = null
 
+    private fun cloudySceneShaderScript(weatherCondition: WeatherCondition): RuntimeShader? = null
 }

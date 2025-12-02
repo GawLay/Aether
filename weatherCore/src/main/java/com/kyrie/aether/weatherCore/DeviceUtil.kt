@@ -16,8 +16,8 @@ object DeviceUtil {
     }
 
     enum class DeviceTier {
-        LOW,    // Budget phones, older devices
+        LOW, // Budget phones, older devices
         MEDIUM, // Mid-range phones
-        HIGH    // Flagship phones
+        HIGH, // Flagship phones
     }
 }

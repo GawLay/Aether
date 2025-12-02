@@ -45,29 +45,30 @@ object WeatherColors {
     // Foggy theme colors
     val FoggyPrimary = Color(0xFF9FA4A8)
     val FoggySecondary = Color(0xFFCACDD1)
+
     // Slightly grey foggy gradient
-    val FoggyBackground = Color(0xFFB0B4B8)          // lighter grey, top
-    val FoggyBackgroundVariant = Color(0xFF8F9499)   // darker grey, bottom
+    val FoggyBackground = Color(0xFFB0B4B8) // lighter grey, top
+    val FoggyBackgroundVariant = Color(0xFF8F9499) // darker grey, bottom
     val FoggyOnBackground = Color(0xFF111315)
-    val FoggySurface = Color(0x80FFFFFF)             // translucent mist overlay
+    val FoggySurface = Color(0x80FFFFFF) // translucent mist overlay
     val FoggyOnSurface = Color(0xFF111315)
 
     // Starry theme colors
-    val StarryPrimary = Color(0xFF8AB4F8)            // soft moonlight blue
+    val StarryPrimary = Color(0xFF8AB4F8) // soft moonlight blue
     val StarrySecondary = Color(0xFFBBD1FF)
-    val StarryBackground = Color(0xFF0B1026)         // very dark blue/indigo
-    val StarryBackgroundVariant = Color(0xFF162044)  // deeper blue for gradient
+    val StarryBackground = Color(0xFF0B1026) // very dark blue/indigo
+    val StarryBackgroundVariant = Color(0xFF162044) // deeper blue for gradient
     val StarryOnBackground = Color(0xFFFFFFFF)
-    val StarrySurface = Color(0x66FFFFFF)            // subtle glow overlay
+    val StarrySurface = Color(0x66FFFFFF) // subtle glow overlay
     val StarryOnSurface = Color(0xFFFFFFFF)
 
-    val CloudyPrimary = Color(0xFF607D8B)             // slate blue-gray
-    val CloudySecondary = Color(0xFF90A4AE)           // lighter blue-gray
-    val CloudyBackground = Color(0xFF37474F)          // deep muted gray
-    val CloudyBackgroundVariant = Color(0xFF263238)   // darker variant for gradients
-    val CloudyOnBackground = Color(0xFFFFFFFF)        // text/icons on background
-    val CloudySurface = Color(0x80FFFFFF)             // translucent overlay for cards
-    val CloudyOnSurface = Color(0xFF111315)           // text/icons on surfaces
+    val CloudyPrimary = Color(0xFF607D8B) // slate blue-gray
+    val CloudySecondary = Color(0xFF90A4AE) // lighter blue-gray
+    val CloudyBackground = Color(0xFF37474F) // deep muted gray
+    val CloudyBackgroundVariant = Color(0xFF263238) // darker variant for gradients
+    val CloudyOnBackground = Color(0xFFFFFFFF) // text/icons on background
+    val CloudySurface = Color(0x80FFFFFF) // translucent overlay for cards
+    val CloudyOnSurface = Color(0xFF111315) // text/icons on surfaces
 }
 
 // Default Material 3 colors (keeping for fallback)

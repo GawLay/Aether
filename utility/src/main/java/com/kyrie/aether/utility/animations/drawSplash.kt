@@ -5,7 +5,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 
-fun DrawScope.drawSplash(splash: Splash, progress: Float) {
+fun DrawScope.drawSplash(
+    splash: Splash,
+    progress: Float,
+) {
     val particleCount = 12
     val maxRadius = 45f
 
@@ -28,7 +31,7 @@ fun DrawScope.drawSplash(splash: Splash, progress: Float) {
         drawCircle(
             color = Color(0.85f, 0.92f, 0.98f, alpha),
             radius = size,
-            center = Offset(x, y)
+            center = Offset(x, y),
         )
     }
 
@@ -44,7 +47,7 @@ fun DrawScope.drawSplash(splash: Splash, progress: Float) {
             color = Color.White.copy(alpha = rippleAlpha),
             radius = rippleRadius,
             center = Offset(splash.x, splash.y),
-            style = Stroke(width = 1.5f)
+            style = Stroke(width = 1.5f),
         )
     }
 }
@@ -52,5 +55,5 @@ fun DrawScope.drawSplash(splash: Splash, progress: Float) {
 data class Splash(
     val x: Float,
     val y: Float,
-    val startTime: Long
+    val startTime: Long,
 )

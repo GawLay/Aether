@@ -1,0 +1,60 @@
+name: Slack Notifications
+
+on:
+  pull_request:
+    types: [opened, closed, reopened, synchronize]
+  pull_request_review:
+    types: [submitted, dismissed]
+  pull_request_review_comment:
+    types: [created, edited, deleted]
+  push:
+    branches:
+      - '**' # This wildcard matches all branches (feature, bugfix, develop, main, etc.)
+
+jobs:
+  slack_notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Notify Slack on Pull Request or Push
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          ACTION=${{ github.event_name }}
+
+          if [[ "$ACTION" == "pull_request" ]]; then
+            # --- PR Logic (Keep) ---
+            PR_TITLE=$(jq -r '.pull_request.title' "$GITHUB_EVENT_PATH")
+            PR_URL=$(jq -r '.pull_request.html_url' "$GITHUB_EVENT_PATH")
+            AUTHOR=$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH")
+            BRANCH=$(jq -r '.pull_request.head.ref' "$GITHUB_EVENT_PATH")
+            MESSAGE="*Pull Request:* \`$PR_TITLE\` ${{ github.event.action }} by *$AUTHOR* to branch \`$BRANCH\`. <$PR_URL|View Pull Request>"
+
+          elif [[ "$ACTION" == "push" ]]; then
+            # --- PUSH Logic (Updated for better detail) ---
+            BRANCH_REF=${{ github.ref }}
+            BRANCH_NAME=${BRANCH_REF#refs/heads/} # Strip 'refs/heads/' prefix
+            COMMIT_COUNT=$(jq -r '.commits | length' "$GITHUB_EVENT_PATH")
+
+            # Get the committer's username (from the first commit if multiple)
+            # Fallback to pusher if commits array is empty (e.g., tag push)
+            AUTHOR=$(jq -r '.pusher.name' "$GITHUB_EVENT_PATH")
+
+            # Get the last commit message and URL
+            LAST_COMMIT_MSG=$(jq -r '.head_commit.message' "$GITHUB_EVENT_PATH" | head -n 1)
+            COMMIT_URL=$(jq -r '.head_commit.url' "$GITHUB_EVENT_PATH")
+
+            if [ "$COMMIT_COUNT" -eq 1 ]; then
+                MESSAGE=":git_push: *$AUTHOR* pushed 1 commit to branch \`$BRANCH_NAME\`:\n> <$COMMIT_URL|\`${LAST_COMMIT_MSG}\`>"
+            else
+                MESSAGE=":git_push: *$AUTHOR* pushed *$COMMIT_COUNT* commits to branch \`$BRANCH_NAME\`.\n> Latest: <$COMMIT_URL|\`${LAST_COMMIT_MSG}\`>"
+            fi
+          fi
+
+          if [ ! -z "$MESSAGE" ]; then
+            # Send the notification using the Slack API payload format
+            curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${MESSAGE}\"}" $SLACK_WEBHOOK_URL
+          fi

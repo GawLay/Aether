@@ -18,38 +18,42 @@ import com.kyrie.aether.weatherCore.WeatherCondition
 @Composable
 fun WeatherCard(
     weatherCondition: WeatherCondition,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    val backgroundColors = when (weatherCondition) {
-        WeatherCondition.RAINY, WeatherCondition.THUNDERSTORM, WeatherCondition.DRIZZLE,
-        WeatherCondition.SHOWER, WeatherCondition.FREEZING_RAIN ->
-            WeatherColors.WeatherCardBackground
+    val backgroundColors =
+        when (weatherCondition) {
+            WeatherCondition.RAINY, WeatherCondition.THUNDERSTORM, WeatherCondition.DRIZZLE,
+            WeatherCondition.SHOWER, WeatherCondition.FREEZING_RAIN,
+            ->
+                WeatherColors.WeatherCardBackground
 
-        WeatherCondition.CLEAR, WeatherCondition.MOSTLY_CLEAR ->
-            WeatherColors.SunnyBackground
+            WeatherCondition.CLEAR, WeatherCondition.MOSTLY_CLEAR ->
+                WeatherColors.SunnyBackground
 
-        WeatherCondition.CLOUDY, WeatherCondition.PARTLY_CLOUDY ->
-            WeatherColors.CloudyBackground
+            WeatherCondition.CLOUDY, WeatherCondition.PARTLY_CLOUDY ->
+                WeatherColors.CloudyBackground
 
-        WeatherCondition.SNOWY, WeatherCondition.HEAVY_SNOWY ->
-            WeatherColors.SnowyBackground
+            WeatherCondition.SNOWY, WeatherCondition.HEAVY_SNOWY ->
+                WeatherColors.SnowyBackground
 
-        WeatherCondition.STARRY, WeatherCondition.PARTLY_STARRY ->
-            WeatherColors.StarryBackground
+            WeatherCondition.STARRY, WeatherCondition.PARTLY_STARRY ->
+                WeatherColors.StarryBackground
 
-        WeatherCondition.FOGGY -> WeatherColors.FoggyBackground
-        WeatherCondition.UNKNOWN -> WeatherColors.FoggyBackground
-    }
+            WeatherCondition.FOGGY -> WeatherColors.FoggyBackground
+            WeatherCondition.UNKNOWN -> WeatherColors.FoggyBackground
+        }
 
     val dimensions = LocalDimensions.current
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = dimensions.spaceLarge),
-        colors = CardDefaults.cardColors(
-            containerColor = backgroundColors
-        ),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensions.spaceLarge),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = backgroundColors,
+            ),
         shape = RoundedCornerShape(dimensions.radiusLarge),
     ) {
         content()

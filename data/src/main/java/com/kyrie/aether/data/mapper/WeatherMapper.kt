@@ -15,17 +15,14 @@ import com.kyrie.aether.weatherCore.WeatherIcon
 import com.kyrie.aether.weatherCore.extensions.weatherCodeToCondition
 import com.kyrie.aether.weatherCore.extensions.weatherCodeToWeatherIcon
 
-fun WeatherResponseDto.toCurrentDomain(): CurrentWeatherDomain {
-    return current_weather.toDomain(current_weather_units)
-}
+fun WeatherResponseDto.toCurrentDomain(): CurrentWeatherDomain =
+    current_weather.toDomain(current_weather_units)
 
-fun WeatherResponseDto.toHourlyDomain(): List<HourlyDomain>? {
-    return hourly?.toDomainList(hourly_units) ?: emptyList()
-}
+fun WeatherResponseDto.toHourlyDomain(): List<HourlyDomain>? =
+    hourly?.toDomainList(hourly_units) ?: emptyList()
 
-fun WeatherResponseDto.toDailyDomain(): List<DailyDomain>? {
-    return daily?.toDomainList(daily_units) ?: emptyList()
-}
+fun WeatherResponseDto.toDailyDomain(): List<DailyDomain>? =
+    daily?.toDomainList(daily_units) ?: emptyList()
 
 fun printWeatherData(message: String) {
     println("Data Mapper Current weather code: $message")
@@ -43,7 +40,7 @@ fun CurrentWeatherDto?.toDomain(currentUnits: CurrentUnitDto?): CurrentWeatherDo
             isDay = true,
             windSpeed = 0.0,
             windDirection = 0,
-            windSpeedUnit = "?"
+            windSpeedUnit = "?",
         )
     }
     val dayNight = is_day ?: 1
@@ -62,7 +59,6 @@ fun CurrentWeatherDto?.toDomain(currentUnits: CurrentUnitDto?): CurrentWeatherDo
         windSpeedUnit = currentUnits?.windspeed ?: "?",
         windDirection = winddirection ?: 0,
     )
-
 }
 
 fun HourlyDto.toDomainList(hourlyUnits: HourlyUnitDto?): List<HourlyDomain> {
@@ -95,7 +91,7 @@ fun HourlyDto.toDomainList(hourlyUnits: HourlyUnitDto?): List<HourlyDomain> {
             uvIndex = uvIndexList.getOrNull(index) ?: 0.0,
             windSpeed10m = windSpeedList.getOrNull(index) ?: 0.0,
             windSpeed10mUnit = hourlyUnits?.wind_speed_10m ?: "?",
-            gustSpeed = gustSpeedList.getOrNull(index) ?: 0.0
+            gustSpeed = gustSpeedList.getOrNull(index) ?: 0.0,
         )
     }
 }
@@ -112,7 +108,7 @@ fun DailyDto.toDomainList(dailyUnits: DailyUnitDto?): List<DailyDomain> {
 
     return timeList.mapIndexed { index, dateValue ->
         val code = weatherCodeList.getOrNull(index) ?: 0
-        //we can get precipitation sign as string from API but you know .. :)
+        // we can get precipitation sign as string from API but you know .. :)
         val precipitationChance = precipitationProbList.getOrNull(index) ?: 0
 
         DailyDomain(
@@ -126,7 +122,7 @@ fun DailyDto.toDomainList(dailyUnits: DailyUnitDto?): List<DailyDomain> {
             sunrise = sunriseList.getOrNull(index) ?: "",
             sunset = sunsetList.getOrNull(index) ?: "",
             precipitationChance = "$precipitationChance",
-            precipitationUnit = dailyUnits?.precipitation_probability_max ?: "?"
+            precipitationUnit = dailyUnits?.precipitation_probability_max ?: "?",
         )
     }
 }

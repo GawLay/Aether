@@ -3,14 +3,14 @@ package com.kyrie.aether.ui.model
 import com.kyrie.aether.weatherCore.WeatherCondition
 import com.kyrie.aether.weatherCore.WeatherIcon
 
-//data class WeatherData(
+// data class WeatherData(
 //    val current: CurrentWeatherUiModel,
 //    val hourly: List<HourlyUiModel>,
 //    val daily: List<DailyUiModel>
-//)
+// )
 
 data class CurrentWeatherUiModel(
-    val time:String,
+    val time: String,
     val temperature: String, // "25°C"
     val condition: WeatherCondition,
     val icon: WeatherIcon,
@@ -24,7 +24,7 @@ data class HourlyUiModel(
     val temperature: String, // "24°C"
     val feelsLike: String, // "27°C"
     val condition: WeatherCondition,
-    val iconString: String, //emoji string representation of the icon
+    val iconString: String, // emoji string representation of the icon
     val precipitationChance: String, // "60%"
     val pressure: String, // "1012 hPa"
     val uvIndex: String, // "High (8)"
@@ -41,13 +41,12 @@ data class DailyUiModel(
     val tempRange: String, // "18° - 28°"
     val uvIndex: String, // "Moderate (5)"
     val sunrise: String, // "6:30 AM"
-    val sunset: String,// "6:45 PM"
-    val precipitationChance: String // "70%",
+    val sunset: String, // "6:45 PM"
+    val precipitationChance: String, // "70%",
 )
 
-
 // Sample data for demonstration
-//object SampleWeatherData {
+// object SampleWeatherData {
 //    val current = WeatherData(
 //        location = "Ho Chi Minh City",
 //        currentTemp = 29,
@@ -68,4 +67,4 @@ data class DailyUiModel(
 //            DailyWeather("Mon", "Rain", 30, 25, 80)
 //        )
 //    )
-//}
+// }

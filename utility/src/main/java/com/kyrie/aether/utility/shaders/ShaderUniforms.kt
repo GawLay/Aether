@@ -1,6 +1,8 @@
 package com.kyrie.aether.utility.shaders
 
-enum class ShaderUniforms(val value: String) {
+enum class ShaderUniforms(
+    val value: String,
+) {
     I_TIME("iTime"),
     I_RESOLUTION("iResolution"),
     COLLISION_BOUNDARY("collisionBoundary"),
@@ -8,7 +10,9 @@ enum class ShaderUniforms(val value: String) {
     COLLISION_ENABLED("collisionEnabled"),
 }
 
-enum class ShaderComposeLayers(val value: String) {
+enum class ShaderComposeLayers(
+    val value: String,
+) {
     FALLING_DROPLET("fallingDropletShaderComposable"),
     FADING_DROPLET("fadingDropletShaderComposable"),
     WEATHER_SCENE("weatherSceneShaderComposable"),

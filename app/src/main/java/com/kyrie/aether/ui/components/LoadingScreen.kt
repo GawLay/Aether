@@ -18,16 +18,16 @@ fun LoadingScreen() {
 
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(dimensions.spaceMedium)
+            verticalArrangement = Arrangement.spacedBy(dimensions.spaceMedium),
         ) {
             CircularProgressIndicator()
             Text(
                 text = "Loading weather data...",
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
             )
         }
     }

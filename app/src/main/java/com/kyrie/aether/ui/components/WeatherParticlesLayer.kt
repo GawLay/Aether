@@ -23,22 +23,25 @@ fun WeatherParticlesLayer(
     modifier: Modifier = Modifier,
     weatherCondition: WeatherCondition,
     shaders: ParticleShaders,
-    iTime: MutableFloatState
+    iTime: MutableFloatState,
 ) {
-    val layers = when (weatherCondition) {
-        WeatherCondition.RAINY -> listOf<@Composable (Modifier) -> Unit>(
-            { FallingDropletLayer(it, shaders.fallingDroplet!!, iTime) },
-            { FadingDropletLayer(it, shaders.fadingDroplet!!, iTime) }
-        )
+    val layers =
+        when (weatherCondition) {
+            WeatherCondition.RAINY ->
+                listOf<@Composable (Modifier) -> Unit>(
+                    { FallingDropletLayer(it, shaders.fallingDroplet!!, iTime) },
+                    { FadingDropletLayer(it, shaders.fadingDroplet!!, iTime) },
+                )
 
-        WeatherCondition.SNOWY -> listOf<@Composable (Modifier) -> Unit>(
-            { FallingDropletLayer(it, shaders.fallingDroplet!!, iTime) },
-            { FadingDropletLayer(it, shaders.fadingDroplet!!, iTime) }
-        )
+            WeatherCondition.SNOWY ->
+                listOf<@Composable (Modifier) -> Unit>(
+                    { FallingDropletLayer(it, shaders.fallingDroplet!!, iTime) },
+                    { FadingDropletLayer(it, shaders.fadingDroplet!!, iTime) },
+                )
 
-        WeatherCondition.STARRY -> emptyList()
-        else -> emptyList() //todo No layers for other weather conditions for now. will implement later
-    }
+            WeatherCondition.STARRY -> emptyList()
+            else -> emptyList() // todo No layers for other weather conditions for now. will implement later
+        }
 
     if (layers.isNotEmpty()) {
         ShaderLayers(modifier = modifier, layers = layers)

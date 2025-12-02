@@ -1,4 +1,3 @@
 package com.kyrie.aether.domain
 
-class MyClass {
-}
+class MyClass

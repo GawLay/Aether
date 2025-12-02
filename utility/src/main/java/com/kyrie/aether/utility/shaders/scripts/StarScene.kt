@@ -6,11 +6,11 @@ import com.kyrie.aether.weatherCore.WeatherCondition
 import com.kyrie.aether.weatherCore.factories.CoreShaderFactory
 
 object StarScene {
-
     fun createStarShaderForCondition(condition: WeatherCondition): RuntimeShader? {
         val config = CoreShaderFactory.getStarConfig(condition) ?: return null
 
-        val shaderCode = """
+        val shaderCode =
+            """
             uniform shader weatherSceneShaderComposable;
             uniform float2 iResolution;
             uniform float iTime;
@@ -44,7 +44,7 @@ object StarScene {
                     return float4(skyColor, 1.0);
                 }
                 
-                // Aspect ratio correction for perfect circles
+                // Aspect ratiofor perfect circles
                 float aspect = iResolution.x / iResolution.y;
                 float2 uvCorrected = uv;
                 uvCorrected.x *= aspect;
@@ -114,7 +114,7 @@ object StarScene {
                 
                 return float4(finalColor, 1.0);
             }
-        """.trimIndent()
+            """.trimIndent()
 
         return ShaderUtil.createShader(shaderCode)
     }

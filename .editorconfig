@@ -1,0 +1,40 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{kt,kts}]
+indent_size = 4
+max_line_length = 140
+ij_kotlin_imports_layout = *
+ij_kotlin_allow_trailing_comma_on_call_site = true
+ij_kotlin_allow_trailing_comma = true
+
+# Ktlint: allow PascalCase function names for @Composable and @Preview functions
+ktlint_function_naming_ignore_when_annotated_with = Composable, Preview
+
+# Relax wrapping rules commonly problematic for Compose UI declarations
+ktlint_standard_parameter-list-wrapping = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_chain-wrapping = disabled
+ktlint_standard_argument-list-wrapping = disabled
+
+# Optional: relax strict wildcard/import rule for generated or Compose-heavy files
+ktlint_standard_no-wildcard-imports = disabled
+
+# Disable filename rule to avoid PascalCase enforcement on filenames
+ktlint_standard_filename = disabled
+
+# Allow empty files
+ktlint_standard_no-empty-file = disabled
+
+# Relax max line length for Compose
+ktlint_standard_max-line-length = disabled
+
+# Keep allowing lowercase filenames for Kotlin script files
+[*.kts]
+ktlint_standard_filename = disabled

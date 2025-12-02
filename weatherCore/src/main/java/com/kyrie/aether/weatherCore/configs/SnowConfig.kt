@@ -9,5 +9,5 @@ data class SnowConfig(
     override val minOpacity: Float,
     override val maxOpacity: Float,
     override val dropletSoftness: Float,
-    override val baseAlpha: Float
+    override val baseAlpha: Float,
 ) : WeatherConfig

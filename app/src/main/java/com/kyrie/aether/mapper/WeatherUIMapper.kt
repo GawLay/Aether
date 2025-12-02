@@ -15,16 +15,12 @@ import com.kyrie.aether.utility.extensions.formatUvIndex
 import com.kyrie.aether.utility.weather.toStringIcon
 import kotlin.math.roundToInt
 
-fun List<HourlyDomain>.toUiHourlyDomain(): List<HourlyUiModel> {
-    return this.map { it.toUiModel() }
-}
+fun List<HourlyDomain>.toUiHourlyDomain(): List<HourlyUiModel> = this.map { it.toUiModel() }
 
-fun List<DailyDomain>.toUiDailyDomain(): List<DailyUiModel> {
-    return this.map { it.toUiModel() }
-}
+fun List<DailyDomain>.toUiDailyDomain(): List<DailyUiModel> = this.map { it.toUiModel() }
 
-fun CurrentWeatherDomain.toUiModel(): CurrentWeatherUiModel {
-    return CurrentWeatherUiModel(
+fun CurrentWeatherDomain.toUiModel(): CurrentWeatherUiModel =
+    CurrentWeatherUiModel(
         time = time.formatToFullDateAndTime(),
         temperature = "${temperature.roundToInt()} $temperatureUnit",
         condition = condition,
@@ -33,10 +29,9 @@ fun CurrentWeatherDomain.toUiModel(): CurrentWeatherUiModel {
         windSpeed = "${windSpeed.roundToInt()} $windSpeedUnit",
         windDirection = windDirection,
     )
-}
 
-fun HourlyDomain.toUiModel(): HourlyUiModel {
-    return HourlyUiModel(
+fun HourlyDomain.toUiModel(): HourlyUiModel =
+    HourlyUiModel(
         time = time.formatToHourly(),
         temperature = "${temperature.roundToInt()}$temperatureUnit",
         feelsLike = "${feelsLike.roundToInt()}$temperatureUnit",
@@ -45,12 +40,11 @@ fun HourlyDomain.toUiModel(): HourlyUiModel {
         precipitationChance = "$precipitationChance$precipitationUnit",
         pressure = "${pressure.roundToInt()} hPa",
         uvIndex = uvIndex.formatUvIndex(),
-        windSpeed10m = "${windSpeed10m.roundToInt()} $windSpeed10mUnit"
+        windSpeed10m = "${windSpeed10m.roundToInt()} $windSpeed10mUnit",
     )
-}
 
-fun DailyDomain.toUiModel(): DailyUiModel {
-    return DailyUiModel(
+fun DailyDomain.toUiModel(): DailyUiModel =
+    DailyUiModel(
         date = date.formatToDayName(),
         fullDate = date.formatToFullDate(),
         condition = condition,
@@ -61,6 +55,5 @@ fun DailyDomain.toUiModel(): DailyUiModel {
         uvIndex = uvIndex.formatUvIndex(),
         sunrise = sunrise.formatToTime(),
         sunset = sunset.formatToTime(),
-        precipitationChance = "$precipitationChance$precipitationUnit"
+        precipitationChance = "$precipitationChance$precipitationUnit",
     )
-}

@@ -7,7 +7,7 @@ data class ParticleShaders(
     val fadingDroplet: RuntimeShader? = null,
     //  fields for future layers
     val snowLayer: RuntimeShader? = null,
-    val thunderLayer: RuntimeShader? = null
+    val thunderLayer: RuntimeShader? = null,
 )
 
 data class WeatherSceneShaders(
@@ -15,5 +15,5 @@ data class WeatherSceneShaders(
     val snowy: RuntimeShader? = null,
     val starry: RuntimeShader? = null,
     val sunny: RuntimeShader? = null,
-    val cloudy: RuntimeShader? = null
+    val cloudy: RuntimeShader? = null,
 )
