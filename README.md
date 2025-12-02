@@ -10,18 +10,12 @@ and the application icon is still a placeholder.
 ## Demo (screen recordings)
 
 Check out the weather shader effects in action:
-
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="screenrecords/Raining-shader-animation.gif" width="30%" />
-  <img src="screenrecords/Snowy-shader-animation.gif" width="30%" />
-  <img src="screenrecords/Starry-shader-animation.gif" width="30%" />
-</div>
-
-<div style="display: flex; justify-content: center; gap: 50px; margin-top: 10px;">
-  <b>🌧️ Rainy</b>
-  <b>❄️ Snowy</b>
-  <b>🌟 Starry Night</b>
-</div>
+- Rainy effect:
+  ![Rainy effect](https://drive.google.com/file/d/1yeLDQcBnGyrGnjnQsujhqi8PR-qotKEq/view?usp=drive_link)
+- Snowy effect:
+- ![Snowy effect](https://drive.google.com/file/d/1zDMtJNC2P8AmvAgb7BNSfDhSSXlvmeNh/view?usp=drive_link)
+- Starry effect:
+- ![Starry effect](https://drive.google.com/file/d/1imRir1T8rQUOE9TX8Gd3mIoea9xJ4poV/view?usp=drive_link)
 
 *(More recordings will be added as new effects are completed.)*
 
