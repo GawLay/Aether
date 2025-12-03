@@ -43,6 +43,105 @@ Planned / WIP:
 - Cloudy (WIP)
 - Sunny (WIP)
 
+## Architecture
+
+Aether follows a **modular, feature-based Clean Architecture** approach with a clear separation of concerns across multiple independent modules.
+
+### Module Structure
+
+```
+app/                 # Application wiring, navigation, startup DI
+├── home/           # Home weather feature (self-contained)
+│   ├── data/       # (Empty for now as it doesn't have feature-specific business logic yet)
+│   ├── domain/     # (Empty for now as it doesn't have feature-specific business logic yet)
+│   ├── presentation/ # UI, ViewModels, states
+│   └── di/         # Feature-specific DI
+├── core-android/   # Shared Android DI modules (Hilt network, Retrofit, repository providers)
+├── core-data/      # Shared data layer (repositories, API clients, DTO mappings, weather API)
+├── core-domain/    # Shared domain layer (use cases, domain models)
+├── ui/             # Shared UI components, widgets, themes
+├── utility/        # Shared utilities, helpers, shader scripts, animations, extensions
+└── weather-core/    # Core weather functionality, configs, shader effect factory
+```
+
+### Module Descriptions
+
+**app**
+- Minimal application module responsible for wiring everything together
+- Handles navigation, app-level DI setup, and startup configuration
+- Depends on feature modules and coordinates the overall app structure
+
+**home**
+- Self-contained feature module for the home weather screen
+- Currently relies on shared `core_data` and `core_domain` for weather functionality
+- Data and domain layers are empty for now as it doesn't have feature-specific business logic yet
+- Contains presentation layer with UI and ViewModels
+- Demonstrates the feature-based architecture pattern for future feature modules
+
+**core-android**
+- Shared Android-specific dependency injection modules
+- Provides Hilt network module, Retrofit configuration, and repository providers
+- Bridges core Kotlin modules with Android framework dependencies
+- Depends on `core_data` to wire up repositories
+
+**core-data** (Pure Kotlin)
+- Shared data layer implementation
+- Provides repositories, API clients, and DTO-to-domain mappings
+- Handles weather API integration (current/daily/hourly forecasts)
+- No Android dependencies for improved testability
+
+**core-domain** (Pure Kotlin)
+- Shared domain layer defining business logic contracts
+- Contains shared use cases and domain models
+- Platform-agnostic for maximum reusability and testability
+- No Android dependencies
+
+**ui**
+- Shared UI components and widgets used across features
+- Provides consistent theming and design system
+- Reusable Compose components
+
+**utility**
+- Shared utility classes and helper functions
+- Contains shader scripts for weather effects
+- Provides animations and Kotlin extensions
+- General-purpose utilities
+
+**weatherCore**
+- Core weather-related functionality and configuration
+- Factory for shader effects based on weather conditions
+- Weather condition mappings and icon providers
+
+### Modularization Benefits
+
+**Separation of Concerns**
+Each module has a single, well-defined responsibility. Core modules are pure Kotlin, ensuring business logic is independent of Android framework details. This separation makes the codebase easier to understand and maintain.
+
+**Dependency Management**
+Feature modules depend only on what they need, following Clean Architecture principles. For example, the `home` feature depends on `core_domain` for business logic interfaces, but not on other features. This prevents tight coupling and reduces the blast radius of changes.
+
+**Build Performance**
+Gradle can build modules in parallel, significantly reducing build times. Changes to one module only require rebuilding that module and its dependents, not the entire project.
+
+**Testability**
+Pure Kotlin modules (`core_data`, `core_domain`) can be tested with fast unit tests without Android framework dependencies. Each module can be tested in isolation with mocked dependencies.
+
+**Scalability**
+Adding new features is straightforward—create a new feature module following the same pattern as `home`. The architecture scales naturally as the project grows without requiring major refactoring.
+
+**Code Reusability**
+Shared modules (`core_data`, `core_domain`, `utility`, `ui`) eliminate code duplication across features. Common functionality is centralized and maintained in one place.
+
+### Tech Stack
+- **Language**: Kotlin
+- **UI**: Jetpack Compose
+- **Architecture**: Clean Architecture + MVVM
+- **DI**: Hilt
+- **Networking**: Retrofit + OkHttp
+- **Async**: Coroutines + Flow
+- **Location**: Google Play Services Location
+- **Shaders**: Android Graphics Shading Language (AGSL)
+
 ## Feature roadmap / TODO
 
 - Implement the remaining shader scripts: Thunder, Cloudy, Sunny
@@ -62,6 +161,8 @@ Planned / WIP:
 
 Contributions are welcome! Feel free to open issues with ideas, bugs, or feature requests, or submit
 pull requests.
+
+Before contributing, please ensure you follow the project architecture as described in the Architecture section above.
 
 Before committing, please run the code style checks and formatter.
 
@@ -87,28 +188,3 @@ Optional local hooks:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Architecture
-
-Modular Clean Architecture for scalability and maintainability.
-
-Current (early stage):
-
-- `:app` — Presentation (UI, ViewModels, screens)
-- `:data` — Data (repositories, data sources, API)
-- `:domain` — Business logic (use cases, domain models)
-- `:utility` — Shared Android utilities
-- `:weatherCore` — Core weather contracts
-
-### Scalable Design
-
-The architecture is intentionally modular to support future growth. As features expand, the project
-will transition into feature-based modules, for example:
-
-- `feature-weather`
-- `feature-weather-domain`
-- `feature-weather-data`
-
-- `feature-cities`
-- `feature-cities-domain`
-- `feature-cities-data`
-  Each feature module will have its own dedicated domain-* and data-* modules

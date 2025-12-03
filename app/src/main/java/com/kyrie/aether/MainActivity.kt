@@ -13,16 +13,16 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.kyrie.aether.common.WeatherUiState
-import com.kyrie.aether.ui.home.HomeScreen
-import com.kyrie.aether.ui.home.HomeViewModel
-import com.kyrie.aether.ui.model.SampleWeatherData
+import com.kyrie.aether.home.presentation.model.SampleWeatherData
+import com.kyrie.aether.home.presentation.state.WeatherUiState
+import com.kyrie.aether.home.presentation.ui.HomeScreen
+import com.kyrie.aether.home.presentation.ui.HomeViewModel
 import com.kyrie.aether.ui.theme.AetherTheme
 import com.kyrie.aether.utility.AetherLog
+import com.kyrie.aether.utility.location.RequestLocationPermission
 import com.kyrie.aether.utility.shaders.ShaderUtil
 import com.kyrie.aether.utility.shaders.model.ParticleShaders
 import com.kyrie.aether.utility.shaders.model.WeatherSceneShaders
-import com.kyrie.aether.utils.permissions.RequestLocationPermission
 import com.kyrie.aether.weatherCore.WeatherCondition
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
                     is WeatherUiState.Success ->
                         (currentWeatherState as WeatherUiState.Success)
                             .weather.condition
+
                     is WeatherUiState.Loading -> WeatherCondition.CLEAR
                     is WeatherUiState.Error -> WeatherCondition.CLEAR
                 }

@@ -1,0 +1,1 @@
+-keep,allowobfuscation,allowshrinking class com.kyrie.aether.home.presentation.ui.HomeViewModel
