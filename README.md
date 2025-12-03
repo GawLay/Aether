@@ -11,7 +11,7 @@ and the application icon is still a placeholder.
 
 Check out the weather shader effects in action:
 - Rainy effect:
-  ![Rainy effect](screenrecords/Rainy-shader-animation.gif)
+  ![Rainy effect](screenrecords/Raining-shader-animation.gif)
 - Snowy effect:
 - ![Snowy effect](screenrecords/Snowy-shader-animation.gif)
 - Starry effect:
