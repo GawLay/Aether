@@ -10,7 +10,6 @@
 .DS_Store
 /build
 /captures
-/screenrecords/
 .externalNativeBuild
 .cxx
 local.properties

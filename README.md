@@ -10,14 +10,14 @@ and the application icon is still a placeholder.
 ## Demo (screen recordings)
 
 Check out the weather shader effects in action:
-- **Rainy effect:**  
-  <img src="screenrecords/Raining-shader-animation.gif" width="300"/>
+- **Rainy effect:**
+  <img src="https://drive.google.com/uc?export=view&id=1yeLDQcBnGyrGnjnQsujhqi8PR-qotKEq" width="300"/>
 
-- **Snowy effect:**  
-   <img src="screenrecords/Snowy-shader-animation.gif" width="300"/>
+- **Snowy effect:**
+  <img src="https://drive.google.com/uc?export=view&id=1zDMtJNC2P8AmvAgb7BNSfDhSSXlvmeNh" width="300"/>
 
-- **Starry effect:**  
-  <img src="screenrecords/Starry-shader-animation.gif" width="300"/>
+- **Starry effect:**
+  <img src="https://drive.google.com/uc?export=view&id=1imRir1T8rQUOE9TX8Gd3mIoea9xJ4poV" width="300"/>
 
 *(More recordings will be added as new effects are completed.)*
 
