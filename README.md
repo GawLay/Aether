@@ -11,11 +11,11 @@ and the application icon is still a placeholder.
 
 Check out the weather shader effects in action:
 - Rainy effect:
-  ![Rainy effect](https://drive.google.com/file/d/1yeLDQcBnGyrGnjnQsujhqi8PR-qotKEq/view?usp=drive_link)
+  ![Rainy effect](screenrecords/Rainy-shader-animation.gif)
 - Snowy effect:
-- ![Snowy effect](https://drive.google.com/file/d/1zDMtJNC2P8AmvAgb7BNSfDhSSXlvmeNh/view?usp=drive_link)
+- ![Snowy effect](screenrecords/Snowy-shader-animation.gif)
 - Starry effect:
-- ![Starry effect](https://drive.google.com/file/d/1imRir1T8rQUOE9TX8Gd3mIoea9xJ4poV/view?usp=drive_link)
+- ![Starry effect](screenrecords/Starry-shader-animation.gif)
 
 *(More recordings will be added as new effects are completed.)*
 
