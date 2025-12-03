@@ -112,26 +112,6 @@ app/                 # Application wiring, navigation, startup DI
 - Factory for shader effects based on weather conditions
 - Weather condition mappings and icon providers
 
-### Modularization Benefits
-
-**Separation of Concerns**
-Each module has a single, well-defined responsibility. Core modules are pure Kotlin, ensuring business logic is independent of Android framework details. This separation makes the codebase easier to understand and maintain.
-
-**Dependency Management**
-Feature modules depend only on what they need, following Clean Architecture principles. For example, the `home` feature depends on `core_domain` for business logic interfaces, but not on other features. This prevents tight coupling and reduces the blast radius of changes.
-
-**Build Performance**
-Gradle can build modules in parallel, significantly reducing build times. Changes to one module only require rebuilding that module and its dependents, not the entire project.
-
-**Testability**
-Pure Kotlin modules (`core_data`, `core_domain`) can be tested with fast unit tests without Android framework dependencies. Each module can be tested in isolation with mocked dependencies.
-
-**Scalability**
-Adding new features is straightforward—create a new feature module following the same pattern as `home`. The architecture scales naturally as the project grows without requiring major refactoring.
-
-**Code Reusability**
-Shared modules (`core_data`, `core_domain`, `utility`, `ui`) eliminate code duplication across features. Common functionality is centralized and maintained in one place.
-
 ### Tech Stack
 - **Language**: Kotlin
 - **UI**: Jetpack Compose
