@@ -45,9 +45,11 @@ android {
 
 dependencies {
     implementation(project(":utility"))
-    implementation(project(":domain"))
-    implementation(project(":data"))
-    implementation(project(":weatherCore"))
+    implementation(project(":core-domain"))
+    implementation(project(":core-data"))
+    implementation(project(":weather-core"))
+    implementation(project(":ui"))
+    implementation(project(":home"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -70,18 +72,6 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-
-    // Retrofit & OkHttp
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
-
-    implementation(libs.play.services.location)
-    implementation(libs.accompanist.permissions)
-
-    // Lifecycle ViewModel
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // Hilt Navigation Compose
     implementation(libs.androidx.hilt.navigation.compose)

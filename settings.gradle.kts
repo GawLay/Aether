@@ -21,7 +21,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "Aether"
 include(":app")
+include(":home")
+include(":ui")
 include(":utility")
-include(":data")
-include(":domain")
-include(":weatherCore")
+include(":core-data")
+include(":core-domain")
+include(":weather-core")
+include(":core-android")
