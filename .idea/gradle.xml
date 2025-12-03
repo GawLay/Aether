@@ -11,10 +11,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/core-android" />
+            <option value="$PROJECT_DIR$/core-data" />
+            <option value="$PROJECT_DIR$/core-domain" />
+            <option value="$PROJECT_DIR$/home" />
+            <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/utility" />
-            <option value="$PROJECT_DIR$/weatherCore" />
+            <option value="$PROJECT_DIR$/weather-core" />
           </set>
         </option>
       </GradleProjectSettings>
